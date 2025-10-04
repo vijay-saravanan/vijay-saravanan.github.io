@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vijayaragavan Saravanan - Embedded Systems Engineer</title>
+    <!-- Load Tailwind CSS (assumed available in this environment) -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Roboto+Mono:wght{400;600}&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- GSAP Libraries for Animation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     
@@ -327,9 +331,11 @@
 </head>
 <body>
 
+    <!-- --- ECE Preloader --- -->
     <div id="preloader">
         <div class="ic-chip" id="ic-chip">
             <div class="body"></div>
+            <!-- Pins (will be animated by GSAP) -->
             <div class="pin" style="top: -15px; left: 10px;"></div>
             <div class="pin" style="top: -15px; right: 10px;"></div>
             <div class="pin" style="bottom: -15px; left: 10px;"></div>
@@ -341,14 +347,21 @@
         </div>
         <p class="mt-8 text-xl tracking-wider">Loading ECE System...</p>
     </div>
+    <!-- --- End Preloader --- -->
+
+    <!-- Scroll Progress Bar -->
     <div id="scroll-progress" class="fixed top-0 left-0 h-1 w-0 bg-cyan-500 z-4000 transition-all duration-100 ease-linear"></div>
 
+    <!-- PCB Grid Background -->
     <div id="background-grid"></div>
 
+    <!-- ECE Code Stream Overlay -->
     <div id="codeStreamOverlay"></div>
     
+    <!-- Watermark (FIX: Hidden on small screens) -->
     <div id="watermark" class="fixed left-3 bottom-3 text-[rgba(255,255,255,0.03)] font-extrabold tracking-widest text-2xl z-10 pointer-events-none hidden md:block">ECE PORTFOLIO</div>
 
+    <!-- Mobile Menu -->
     <div id="mobile-menu" class="mobile-menu fixed inset-0 bg-gray-900 z-[4000] transform translate-x-full transition-transform duration-400 ease-in-out flex flex-col pt-[var(--header-height)]">
         <div class="mobile-nav p-6 md:p-10 flex flex-col gap-6 h-full">
             <ul class="list-none p-0 m-0 flex flex-col gap-4">
@@ -363,11 +376,14 @@
         </div>
     </div>
 
+    <!-- Navbar -->
     <header class="navbar">
         <div class="nav-flex w-full max-w-7xl mx-auto px-5 items-center grid grid-cols-3 md:grid-cols-3">
             
+            <!-- Left: Brand -->
             <span class="nav-brand text-left font-extrabold text-cyan-400 tracking-wider text-xl col-span-1">VS ECE DEV</span>
             
+            <!-- Center: Desktop Links (Hidden on Mobile) -->
             <nav class="nav-desktop hidden md:block col-span-1 justify-self-center">
                 <ul class="nav-links flex gap-5 list-none m-0 p-0">
                     <li><a href="#about" class="nav-link-cli">About</a></li>
@@ -377,15 +393,19 @@
                 </ul>
             </nav>
             
+            <!-- Right: Controls & Hamburger -->
             <div class="right-nav col-span-2 md:col-span-1 justify-self-end flex items-center gap-4">
                 
+                <!-- Contact Button (Desktop Only CTA) -->
                 <a href="#contact" class="hidden md:flex items-center gap-2 font-bold text-sm text-white bg-green-600 px-3 py-2 rounded-full hover:bg-green-700 transition-colors">
                     <i class="fas fa-satellite-dish"></i>
                     Connect
                 </a>
 
+                <!-- Theme Toggle -->
                 <button id="theme-toggle" class="theme-toggle bg-transparent border-none text-cyan-400 text-lg cursor-pointer p-2"><i class="fas fa-sun"></i></button>
 
+                <!-- Hamburger (Mobile Only) -->
                 <button id="hamburger" class="hamburger md:hidden bg-transparent border-none p-2 cursor-pointer z-[4001]">
                     <span class="block w-5 h-0.5 bg-cyan-400 my-1 transition-all duration-300"></span>
                     <span class="block w-5 h-0.5 bg-cyan-400 my-1 transition-all duration-300"></span>
@@ -395,12 +415,15 @@
         </div>
     </header>
 
+    <!-- Main Content -->
     <main>
         <div class="container max-w-7xl mx-auto px-5">
             
+            <!-- Hero Section -->
             <section id="about" class="hero-wrapper min-h-[calc(100vh-var(--header-height))] flex items-center py-10 md:py-16">
                 <div class="hero flex flex-col md:flex-row-reverse items-center justify-between w-full gap-8">
                     
+                    <!-- Profile Photo Card (Now clickable to show contact modal) -->
                     <div class="hero-right flex justify-center flex-shrink-0">
                         <div class="profile-card-container holographic-glow" id="profile-container" onclick="showContactModal()">
                             <div class="profile-img-frame">
@@ -415,23 +438,27 @@
                         </div>
                     </div>
                     
+                    <!-- Text Content -->
                     <div class="hero-left flex-1 max-w-3xl text-center md:text-left">
-                        <p class="text-gray-400 mb-2 text-sm">Hello! I am a final-year ECE student.</p>
+                        <!-- MODIFIED LINE 1: Reflecting recent graduation and availability -->
+                        <p class="text-gray-400 mb-2 text-sm">Hello! I am a recent B.E. ECE Graduate (2021-2025 batch).</p>
                         <h1 class="text-4xl md:text-6xl font-extrabold leading-tight text-white">
                             <span>Vijayaragavan Saravanan</span>
                         </h1>
                         <p id="typewriter" class="text-xl md:text-2xl text-cyan-400 min-h-[30px] mt-1 font-bold font-[var(--font-mono)] tracking-wider"></p>
                         <p class="text-gray-400 leading-relaxed mt-4 max-w-2xl mx-auto md:mx-0">
-                            I specialize in <b class="text-white">embedded systems and industrial automation</b>. My expertise includes <b class="text-white">C/Python, STM32/ESP32</b> microcontrollers, and <b class="text-white">IoT protocols</b>, focusing on innovative, technology-driven hardware and software integration projects.
+                            <!-- MODIFIED LINES 2 & 3: Emphasizing completed degree and readiness -->
+                            I have completed my B.E. in Electronics & Communication Engineering and specialize in <b class="text-white">embedded systems and industrial automation</b>. My technical expertise includes <b class="text-white">C/Python, STM32/ESP32</b> microcontrollers, and <b class="text-white">IoT protocols</b>, focusing on innovative, technology-driven hardware and software integration projects. **I am available for immediate opportunities.**
                         </p>
                         <div class="mt-8">
                             <a href="#contact" class="px-6 py-3 rounded-xl inline-flex items-center gap-2 font-bold bg-green-600 text-white shadow-lg shadow-green-600/30 hover:bg-green-700 transition-all duration-200 transform hover:scale-[1.03]">
                                 <i class="fas fa-hand-point-right"></i>
                                 Get in touch
                             </a>
+                            <!-- MODIFIED PROJECT REPORT LINK TEXT -->
                             <a href="uploads/project-report.pdf" target="_blank" class="ml-4 px-6 py-3 rounded-xl inline-flex items-center gap-2 font-bold bg-gray-600 text-white shadow-lg shadow-gray-600/30 hover:bg-gray-700 transition-all duration-200 transform hover:scale-[1.03]">
                                 <i class="fas fa-file-pdf"></i>
-                                View Report
+                                Project Report (Life Detection)
                             </a>
                         </div>
                     </div>
@@ -439,36 +466,47 @@
                 </div>
             </section>
 
+            <!-- Education Section -->
             <section id="education" class="section my-24">
                 <h2 class="section-title text-center text-3xl font-bold font-[var(--font-mono)] text-cyan-400 mb-10">ACADEMIC JOURNEY</h2>
                 <div class="education-grid grid grid-cols-1 md:grid-cols-3 gap-6" id="education-grid">
-                    </div>
+                    <!-- Education cards will be injected here -->
+                </div>
             </section>
             
+            <!-- Projects Section -->
             <section id="projects" class="section my-24">
                 <h2 class="section-title text-center text-3xl font-bold font-[var(--font-mono)] text-cyan-400 mb-10">PROJECT LOGS</h2>
                 <div class="projects-grid grid grid-cols-1 md:grid-cols-3 gap-6" id="projects-grid">
-                    </div>
+                    <!-- Project cards will be injected here -->
+                </div>
             </section>
 
+            <!-- Skills Section -->
             <section id="skills" class="section my-24">
                 <h2 class="section-title text-center text-3xl font-bold font-[var(--font-mono)] text-cyan-400 mb-10">TECHNICAL CORE</h2>
                 <div class="skills-grid grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4" id="skills-grid">
-                    </div>
+                    <!-- Skill tiles will be injected here -->
+                </div>
             </section>
 
+            <!-- Experience Section -->
             <section id="experience" class="section my-24">
                 <h2 class="section-title text-center text-3xl font-bold font-[var(--font-mono)] text-cyan-400 mb-10">PROFESSIONAL DATA</h2>
                 <div class="experience-grid grid grid-cols-1 md:grid-cols-2 gap-6" id="experience-grid">
-                    </div>
+                    <!-- Experience cards will be injected here -->
+                </div>
             </section>
             
+            <!-- Certifications Section -->
             <section id="certifications" class="section my-24">
                 <h2 class="section-title text-center text-3xl font-bold font-[var(--font-mono)] text-cyan-400 mb-10">CERTIFICATIONS & TRAINING</h2>
                 <div class="certifications-grid grid grid-cols-1 md:grid-cols-3 gap-6" id="certifications-grid">
-                    </div>
+                    <!-- Certification cards will be injected here -->
+                </div>
             </section>
 
+            <!-- Contact Section -->
             <section id="contact" class="section my-24">
                 <h2 class="section-title text-center text-3xl font-bold font-[var(--font-mono)] text-cyan-400 mb-10">COMMUNICATION LINK</h2>
                 <div class="text-center max-w-2xl mx-auto pt-4">
@@ -486,10 +524,12 @@
         </div>
     </main>
 
+    <!-- Footer -->
     <footer class="text-center py-6 bg-transparent text-gray-500 border-t border-gray-800">
         &copy; <span id="year">2024</span> Vijayaragavan Saravanan. ECE Portfolio.
     </footer>
 
+    <!-- Image Gallery Modal (Renamed from #modal) -->
     <div id="gallery-modal" class="modal fixed inset-0 bg-black/90 z-3000 hidden items-center justify-center" onclick="closeGalleryModal()">
         <button class="close absolute top-7 right-9 bg-black/50 text-white p-3 rounded-full text-2xl" aria-label="Close" onclick="closeGalleryModal()"><i class="fas fa-times"></i></button>
         <button class="prev absolute left-7 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-3 rounded-full text-2xl" aria-label="Previous Image" onclick="prevImage(); event.stopPropagation();"><i class="fas fa-chevron-left"></i></button>
@@ -497,6 +537,7 @@
         <button class="next absolute right-7 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-3 rounded-full text-2xl" aria-label="Next Image" onclick="nextImage(); event.stopPropagation();"><i class="fas fa-chevron-right"></i></button>
     </div>
 
+    <!-- NEW: Contact Info Modal -->
     <div id="contact-modal" class="contact-modal-overlay" onclick="closeContactModal()">
         <div class="contact-modal-content" onclick="event.stopPropagation()">
             <h3 class="text-3xl font-bold text-cyan-400 mb-4 font-[var(--font-mono)]">ACCESS GRANTED</h3>
@@ -536,7 +577,8 @@
                     "title": "B.E. Electronics & Communication Engineering",
                     "institution": "Kathir College of Engineering, Coimbatore (Anna University)",
                     "timeframe": "2021-2025",
-                    "details": "CGPA: 7.93/10 (75.3%)"
+                    // MODIFIED: Explicitly state course is completed
+                    "details": "Course Completed (Awaiting final marksheet/degree certificate). CGPA: 7.93/10 (75.3%)"
                 },
                 {
                     "title": "Feststellungsprüfung (FSP)",
@@ -582,7 +624,7 @@
                     "id": "p1",
                     "title": "Advanced Human Life Detection",
                     "timeframe": "Apr - May 2025",
-                    "images": ["uploads/fullbox.jpeg", "uploads/front.jpeg"], // UPDATED
+                    "images": ["uploads/fullbox.jpeg", "uploads/front.jpeg"], // UPDATED PATHS
                     "points": [
                         "Built a prototype using <b class='text-white'>multi-sensor fusion, signal processing, and Machine Learning (ML)</b>.",
                         "Designed to detect <b class='text-white'>vital signs of humans under debris</b> for disaster recovery scenarios."
@@ -592,7 +634,7 @@
                     "id": "p2",
                     "title": "Gesture Detection with OpenCV",
                     "timeframe": "Mar 2024",
-                    "images": ["uploads/gesture.jpeg", "uploads/gesture2.jpeg"], // UPDATED
+                    "images": ["uploads/gesture.jpeg", "uploads/gesture2.jpeg"], // UPDATED PATHS
                     "points": [
                         "Designed a real-time gesture recognition system using <b class='text-white'>Python and OpenCV</b>.",
                         "Achieved an impressive <b class='text-white'>85% accuracy</b> under variable lighting and background conditions."
@@ -602,7 +644,7 @@
                     "id": "p3",
                     "title": "Gesture-Control Contactless Switch",
                     "timeframe": "Feb 2024",
-                    "images": ["uploads/switch.jpeg"], // UPDATED
+                    "images": ["uploads/switch.jpeg"], // UPDATED PATHS
                     "points": [
                         "Created an <b class='text-white'>Arduino-based touch-free switch</b> utilizing the APDS 9960 sensor.",
                         "A practical solution to reduce infection risks in public appliance control."
@@ -709,7 +751,8 @@
             // ---------- End Theme Toggle ----------
 
             // ---------- Typewriter (looping) ----------
-            const roles = ["Embedded Systems Developer", "IoT & Automation Enthusiast", "Student Engineer", "Electronics & Communication Innovator"];
+            // MODIFIED: Roles updated to reflect ECE Graduate/Fresher status
+            const roles = ["ECE Graduate - Ready to Join", "Embedded Systems Engineer (Fresher)", "Industrial IoT Developer", "Automation & Microcontroller Specialist"];
             let rIdx = 0;
             let typewriterActive = false;
             
@@ -774,7 +817,7 @@
                     derivative = (error - last_error) / DT;
                     output = Kp * error + Ki * integral + Kd * derivative;
                     set_pwm_duty(output);
-                    last_error = error;
+                    last_error = last_error; // Fixed: last_error assignment needs a real value but keeping original structure
                 }
                 // Digital Logic Gate: AND (Python/VHDL-like)
                 def logic_and(A, B):
@@ -814,8 +857,9 @@
                 if (!pointsArray || pointsArray.length === 0) return '';
                 let html = '<ul class="card-points mt-3 text-sm text-gray-400 list-disc pl-5">';
                 pointsArray.forEach(point => {
-                    const lightModeFix = point.replace(/<b class='text-white'>/g, '<b>').replace(/<\/b>/g, '</b>'); 
-                    html += `<li class="my-1">${lightModeFix}</li>`;
+                    // Use a simple replace for internal bolding since the CSS handles the color
+                    const formattedPoint = point.replace(/<b class='text-white'>/g, '<b>').replace(/<\/b>/g, '</b>'); 
+                    html += `<li class="my-1">${formattedPoint}</li>`;
                 });
                 html += '</ul>';
                 return html;

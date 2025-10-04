@@ -326,6 +326,20 @@
             transform: translateY(0);
         }
         /* --- End Custom Contact Modal Style --- */
+
+        /* Gallery Thumbnail Hover Effect */
+        .gallery-thumb {
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            border-radius: 0.75rem;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            cursor: pointer;
+            border: 3px solid transparent;
+        }
+        .gallery-thumb:hover {
+            transform: scale(1.05);
+            border-color: var(--accent);
+        }
         
     </style>
 </head>
@@ -368,10 +382,14 @@
                 <li><a href="#about" class="text-white text-2xl font-bold block py-2 border-b border-gray-700 hover:text-cyan-400 transition-colors">About</a></li>
                 <li><a href="#education" class="text-white text-2xl font-bold block py-2 border-b border-gray-700 hover:text-cyan-400 transition-colors">Education</a></li>
                 <li><a href="#projects" class="text-white text-2xl font-bold block py-2 border-b border-gray-700 hover:text-cyan-400 transition-colors">Projects</a></li>
+                <!-- NEW MOBILE NAV LINK -->
+                <li><a href="#gallery" class="text-white text-2xl font-bold block py-2 border-b border-gray-700 hover:text-cyan-400 transition-colors">Gallery</a></li>
                 <li><a href="#skills" class="text-white text-2xl font-bold block py-2 border-b border-gray-700 hover:text-cyan-400 transition-colors">Skills</a></li>
                 <li><a href="#experience" class="text-white text-2xl font-bold block py-2 border-b border-gray-700 hover:text-cyan-400 transition-colors">Experience</a></li>
                 <li><a href="#certifications" class="text-white text-2xl font-bold block py-2 border-b border-gray-700 hover:text-cyan-400 transition-colors">Certifications</a></li>
                 <li><a href="#contact" class="text-white text-2xl font-bold block py-2 border-b border-gray-700 hover:text-cyan-400 transition-colors">Contact</a></li>
+                <!-- NEW MOBILE NAV LINK -->
+                <li><a href="#feedback" class="text-white text-2xl font-bold block py-2 border-b border-gray-700 hover:text-cyan-400 transition-colors">Feedback</a></li>
             </ul>
         </div>
     </div>
@@ -388,8 +406,12 @@
                 <ul class="nav-links flex gap-5 list-none m-0 p-0">
                     <li><a href="#about" class="nav-link-cli">About</a></li>
                     <li><a href="#projects" class="nav-link-cli">Projects</a></li>
+                    <!-- NEW DESKTOP NAV LINK -->
+                    <li><a href="#gallery" class="nav-link-cli">Gallery</a></li>
                     <li><a href="#skills" class="nav-link-cli">Skills</a></li>
                     <li><a href="#contact" class="nav-link-cli">Contact</a></li>
+                    <!-- NEW DESKTOP NAV LINK -->
+                    <li><a href="#feedback" class="nav-link-cli">Feedback</a></li>
                 </ul>
             </nav>
             
@@ -482,6 +504,16 @@
                 </div>
             </section>
 
+            <!-- NEW: Gallery Section -->
+            <section id="gallery" class="section my-24">
+                <h2 class="section-title text-center text-3xl font-bold font-[var(--font-mono)] text-cyan-400 mb-10">PROJECT GALLERY VISUALS</h2>
+                <p class="text-center text-gray-400 mb-8 max-w-3xl mx-auto">Explore the hardware and software implementations of my work. Click any image to view it full-screen.</p>
+                <div class="gallery-grid grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" id="gallery-grid">
+                    <!-- Gallery images will be injected here -->
+                </div>
+            </section>
+
+
             <!-- Skills Section -->
             <section id="skills" class="section my-24">
                 <h2 class="section-title text-center text-3xl font-bold font-[var(--font-mono)] text-cyan-400 mb-10">TECHNICAL CORE</h2>
@@ -519,6 +551,28 @@
                 <div class="flex justify-center gap-6 mt-6">
                     <a href="https://linkedin.com/in/vijayaragavansaravanan" target="_blank" aria-label="LinkedIn" class="text-cyan-400 text-3xl hover:text-white transition-colors"><i class="fab fa-linkedin"></i></a>
                     <a href="https://github.com/vijay-saravanan/Advanced-Human-Life-Detection" target="_blank" aria-label="GitHub Project" class="text-cyan-400 text-3xl hover:text-white transition-colors"><i class="fab fa-github"></i></a>
+                </div>
+            </section>
+
+            <!-- NEW: Feedback/Suggestion Box Section (Firestore Enabled) -->
+            <section id="feedback" class="section my-24 pt-10">
+                <h2 class="section-title text-center text-3xl font-bold font-[var(--font-mono)] text-cyan-400 mb-10">FEEDBACK TERMINAL</h2>
+                <div class="max-w-xl mx-auto p-6 rounded-xl border-4 border-dashed border-gray-700 bg-gray-900/50">
+                    <p class="text-gray-400 mb-6 text-center">Transmit a suggestion or constructive critique to improve this portfolio.</p>
+                    <form id="suggestion-form" class="space-y-4">
+                        <div>
+                            <label for="feedback-name" class="block text-sm font-medium text-gray-300 mb-1">Your Name (Optional)</label>
+                            <input type="text" id="feedback-name" placeholder="Anonymous or your name" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:ring-cyan-500 focus:border-cyan-500 transition">
+                        </div>
+                        <div>
+                            <label for="feedback-suggestion" class="block text-sm font-medium text-gray-300 mb-1">Suggestion / Feedback *</label>
+                            <textarea id="feedback-suggestion" required rows="4" placeholder="Enter your suggestion here..." class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:ring-cyan-500 focus:border-cyan-500 transition"></textarea>
+                        </div>
+                        <button type="submit" id="feedback-submit-btn" class="w-full py-3 rounded-lg bg-green-600 text-white font-bold hover:bg-green-700 transition-colors flex items-center justify-center gap-2 disabled:opacity-50" disabled>
+                            <i class="fas fa-terminal"></i> SEND TRANSMISSION
+                        </button>
+                    </form>
+                    <div id="feedback-message" class="mt-4 p-3 rounded-lg text-center font-bold hidden"></div>
                 </div>
             </section>
         </div>
@@ -569,7 +623,12 @@
     </div>
 
 
-    <script>
+    <script type="module">
+        // Firebase Imports for Firestore functionality
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        
         // Mock data now using arrays for bullet points (UPDATED with Education and Certifications)
         const portfolioData = {
             "education": [
@@ -577,7 +636,6 @@
                     "title": "B.E. Electronics & Communication Engineering",
                     "institution": "Kathir College of Engineering, Coimbatore (Anna University)",
                     "timeframe": "2021-2025",
-                    // MODIFIED: Explicitly state course is completed
                     "details": "Course Completed (Awaiting final marksheet/degree certificate). CGPA: 7.93/10 (75.3%)"
                 },
                 {
@@ -700,10 +758,8 @@
             const codeStream = $('codeStreamOverlay');
             const projectsGrid = $('projects-grid');
             const skillsGrid = $('skills-grid');
-            // Renamed project modal to gallery-modal
             const galleryModal = $('gallery-modal');
             const modalImg = $('modal-img');
-            // New contact modal
             const contactModal = $('contact-modal');
             const hamburger = $('hamburger');
             const mobileMenu = $('mobile-menu');
@@ -713,6 +769,122 @@
             const experienceGrid = $('experience-grid'); 
             const certificationsGrid = $('certifications-grid');
             const preloader = $('preloader');
+            const galleryGrid = $('gallery-grid'); // NEW ELEMENT
+            const suggestionForm = $('suggestion-form'); // NEW ELEMENT
+            const feedbackMessage = $('feedback-message'); // NEW ELEMENT
+            const feedbackSubmitBtn = $('feedback-submit-btn'); // NEW ELEMENT
+
+            // Firebase Globals
+            let db, auth, userId;
+            const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+            const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+            const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+            let isAuthReady = false;
+
+            // ---------- FIREBASE INITIALIZATION ----------
+            async function initFirebase() {
+                if (!firebaseConfig) {
+                    console.error("Firebase configuration not available.");
+                    return;
+                }
+                try {
+                    const app = initializeApp(firebaseConfig);
+                    db = getFirestore(app);
+                    auth = getAuth(app);
+                    setLogLevel('debug');
+                    
+                    if (initialAuthToken) {
+                        await signInWithCustomToken(auth, initialAuthToken);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+
+                    onAuthStateChanged(auth, (user) => {
+                        userId = user ? user.uid : crypto.randomUUID();
+                        isAuthReady = true;
+                        console.log("Firebase Auth Ready. User ID:", userId);
+                        // Enable the submit button once authenticated
+                        if (feedbackSubmitBtn) {
+                            feedbackSubmitBtn.disabled = false;
+                        }
+                    });
+
+                } catch (error) {
+                    console.error("Firebase initialization failed:", error);
+                    if (feedbackSubmitBtn) {
+                        feedbackSubmitBtn.disabled = true;
+                        feedbackSubmitBtn.textContent = 'Auth Failed';
+                    }
+                }
+            }
+            
+            // ---------- SUGGESTION BOX LOGIC (NEW) ----------
+            function showFeedbackMessage(message, isError = false) {
+                feedbackMessage.textContent = message;
+                feedbackMessage.className = `mt-4 p-3 rounded-lg text-center font-bold`;
+                if (isError) {
+                    feedbackMessage.classList.add('bg-red-800', 'text-white');
+                } else {
+                    feedbackMessage.classList.add('bg-green-700', 'text-white');
+                }
+                feedbackMessage.style.display = 'block';
+                setTimeout(() => {
+                    feedbackMessage.style.display = 'none';
+                }, 5000);
+            }
+
+            async function saveSuggestionToFirestore(event) {
+                event.preventDefault();
+                
+                if (!db || !isAuthReady) {
+                    showFeedbackMessage("System not ready. Please wait for authentication.", true);
+                    return;
+                }
+
+                feedbackSubmitBtn.disabled = true;
+                feedbackSubmitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> TRANSMITTING...';
+
+                const name = $('feedback-name').value.trim() || 'Anonymous';
+                const suggestion = $('feedback-suggestion').value.trim();
+
+                if (suggestion.length < 10) {
+                    showFeedbackMessage("Suggestion must be at least 10 characters long.", true);
+                    feedbackSubmitBtn.disabled = false;
+                    feedbackSubmitBtn.innerHTML = '<i class="fas fa-terminal"></i> SEND TRANSMISSION';
+                    return;
+                }
+
+                try {
+                    // Store in public data so it can be reviewed easily
+                    const suggestionRef = collection(db, `artifacts/${appId}/public/data/suggestions`);
+                    await addDoc(suggestionRef, {
+                        name: name,
+                        suggestion: suggestion,
+                        timestamp: new Date(),
+                        submitterId: userId
+                    });
+
+                    showFeedbackMessage("Transmission received! Thank you for your suggestion.", false);
+                    $('feedback-name').value = '';
+                    $('feedback-suggestion').value = '';
+
+                } catch (error) {
+                    console.error("Error writing document:", error);
+                    showFeedbackMessage(`Error: Could not save suggestion. ${error.message}`, true);
+                } finally {
+                    feedbackSubmitBtn.disabled = false;
+                    feedbackSubmitBtn.innerHTML = '<i class="fas fa-terminal"></i> SEND TRANSMISSION';
+                }
+            }
+            
+            if (suggestionForm) {
+                suggestionForm.addEventListener('submit', saveSuggestionToFirestore);
+            }
+            // Disable button initially until Firebase is ready
+            if (feedbackSubmitBtn) {
+                feedbackSubmitBtn.disabled = true; 
+            }
+            // ---------- END SUGGESTION BOX LOGIC ----------
 
             // ---------- Theme Toggle ----------
             function toggleTheme() {
@@ -751,45 +923,47 @@
             // ---------- End Theme Toggle ----------
 
             // ---------- Typewriter (looping) ----------
-            // MODIFIED: Roles updated to reflect ECE Graduate/Fresher status
             const roles = ["ECE Graduate - Ready to Join", "Embedded Systems Engineer (Fresher)", "Industrial IoT Developer", "Automation & Microcontroller Specialist"];
             let rIdx = 0;
             let typewriterActive = false;
             
-            if (typeEl) {
-                function typeLoop(){
-                    typewriterActive = true;
-                    const text = roles[rIdx];
-                    let i = 0;
-                    const step = () => {
-                        if (!typewriterActive) return;
-                        if (i <= text.length) {
-                            typeEl.textContent = text.slice(0, i);
-                            i++;
-                            setTimeout(step, 50);
-                        } else {
-                            setTimeout(() => deleteLoop(), 1200);
-                        }
-                    };
-                    step();
-                }
-                function deleteLoop(){
+            // FIX: Defining functions at the IIFE scope to ensure they are accessible
+            // by the GSAP timeline in runEntrances().
+            function typeLoop(){
+                if (!typeEl) return;
+                typewriterActive = true;
+                const text = roles[rIdx];
+                let i = 0;
+                const step = () => {
                     if (!typewriterActive) return;
-                    let s = typeEl.textContent;
-                    let i = s.length;
-                    const stepD = () => {
-                        if (!typewriterActive) return;
-                        if (i >= 0) {
-                            typeEl.textContent = s.slice(0, i);
-                            i--;
-                            setTimeout(stepD, 25);
-                        } else {
-                            rIdx = (rIdx + 1) % roles.length;
-                            setTimeout(typeLoop, 200);
-                        }
-                    };
-                    stepD();
-                }
+                    if (i <= text.length) {
+                        typeEl.textContent = text.slice(0, i);
+                        i++;
+                        setTimeout(step, 50);
+                    } else {
+                        setTimeout(() => deleteLoop(), 1200);
+                    }
+                };
+                step();
+            }
+
+            function deleteLoop(){
+                if (!typeEl) return;
+                if (!typewriterActive) return;
+                let s = typeEl.textContent;
+                let i = s.length;
+                const stepD = () => {
+                    if (!typewriterActive) return;
+                    if (i >= 0) {
+                        typeEl.textContent = s.slice(0, i);
+                        i--;
+                        setTimeout(stepD, 25);
+                    } else {
+                        rIdx = (rIdx + 1) % roles.length;
+                        setTimeout(typeLoop, 200);
+                    }
+                };
+                stepD();
             }
             
             // ---------- ECE Code Stream Content Setup ----------
@@ -817,7 +991,7 @@
                     derivative = (error - last_error) / DT;
                     output = Kp * error + Ki * integral + Kd * derivative;
                     set_pwm_duty(output);
-                    last_error = last_error; // Fixed: last_error assignment needs a real value but keeping original structure
+                    last_error = current; // Corrected: last_error assignment needs the current value
                 }
                 // Digital Logic Gate: AND (Python/VHDL-like)
                 def logic_and(A, B):
@@ -832,12 +1006,15 @@
             }
 
             // ---------- Data handling and rendering ----------
+            let allGalleryImages = []; // Global flat list for the gallery
+
             function fetchData(){
                 renderEducation(); 
                 renderProjects();
                 renderSkills();
                 renderExperience();
                 renderCertifications(); 
+                renderGallery(); // NEW CALL
             }
 
             function createCard(title, content, type, dataId) {
@@ -845,7 +1022,8 @@
                 card.className = `${type}-card p-5 rounded-xl transition-all duration-300 transform border border-gray-800 hover:shadow-cyan-500/50 hover:shadow-xl`;
                 card.innerHTML = content;
                 if (type === 'project' && dataId !== null) {
-                    card.addEventListener('click', () => openGalleryModal(dataId));
+                    // Project cards now open a modal specific to that project's images
+                    card.addEventListener('click', () => openProjectModal(dataId));
                 }
                 if (type === 'skill') {
                     card.classList.add('skill-tile'); // Add skill-tile class for styling
@@ -857,7 +1035,6 @@
                 if (!pointsArray || pointsArray.length === 0) return '';
                 let html = '<ul class="card-points mt-3 text-sm text-gray-400 list-disc pl-5">';
                 pointsArray.forEach(point => {
-                    // Use a simple replace for internal bolding since the CSS handles the color
                     const formattedPoint = point.replace(/<b class='text-white'>/g, '<b>').replace(/<\/b>/g, '</b>'); 
                     html += `<li class="my-1">${formattedPoint}</li>`;
                 });
@@ -896,12 +1073,22 @@
                 });
             }
 
+            // Render Projects (populates global image list)
             function renderProjects(){
                 if(!projectsGrid) return;
                 projectsGrid.innerHTML = '';
                 
-                portfolioData.projects.forEach((p, i) => {
-                    // Use the FIRST image from the array as the thumbnail
+                // Clear and repopulate global flat image list
+                allGalleryImages = [];
+                portfolioData.projects.forEach((p, projectIndex) => {
+                    // Add images to the flat list, storing the original project index and image index
+                    if (p.images) {
+                        p.images.forEach((imgUrl, imageIndex) => {
+                            allGalleryImages.push({ url: imgUrl, projectIndex: projectIndex, imageIndex: imageIndex, title: p.title });
+                        });
+                    }
+
+                    // Render the project card
                     const thumbUrl = p.images?.[0] || 'https://placehold.co/400x250/161B22/8891A0?text=Project';
                     const content = `
                         <img src="${thumbUrl}" 
@@ -912,7 +1099,24 @@
                         <p class="text-sm text-gray-500 mb-2 font-mono">${p.timeframe || ''}</p>
                         ${renderPoints(p.points)}
                     `;
-                    projectsGrid.appendChild(createCard(p.title, content, 'project', i));
+                    projectsGrid.appendChild(createCard(p.title, content, 'project', projectIndex));
+                });
+            }
+
+            // Render Gallery Section (NEW)
+            function renderGallery() {
+                if (!galleryGrid) return;
+                galleryGrid.innerHTML = '';
+                
+                allGalleryImages.forEach((imgData, galleryIndex) => {
+                    const imgEl = document.createElement('img');
+                    imgEl.src = imgData.url;
+                    imgEl.alt = imgData.title || "Project Image";
+                    imgEl.loading = 'lazy';
+                    imgEl.className = 'gallery-thumb w-full shadow-lg';
+                    // Clicking a gallery image opens the modal starting from that image
+                    imgEl.onclick = () => openGalleryModal(galleryIndex); 
+                    galleryGrid.appendChild(imgEl);
                 });
             }
 
@@ -1000,7 +1204,7 @@
                     });
 
                     // Card Stagger Animation (Combined for all card types)
-                    gsap.utils.toArray('.education-card, .project-card, .experience-card, .cert-card').forEach(card => {
+                    gsap.utils.toArray('.education-card, .project-card, .experience-card, .cert-card, .gallery-thumb').forEach(card => {
                         gsap.from(card, { 
                             y: 50, 
                             autoAlpha: 0, 
@@ -1036,14 +1240,14 @@
                 }
             }
 
-            // ---------- Modal functions (Updated for two modals) ----------
-            let modalImages = [], modalIndex = 0;
-            
-            // Project Gallery Modal Functions
-            function openGalleryModal(index){
-                modalImages = portfolioData.projects[index]?.images || [];
-                modalIndex = 0;
+            // ---------- Modal functions (Updated for global gallery access) ----------
+            let modalImages = []; // Stores the currently loaded image set (flat list of all images)
+            let modalIndex = 0;
 
+            // Function to open the modal from a Project Card (uses only that project's images)
+            function openProjectModal(projectIndex) {
+                modalImages = portfolioData.projects[projectIndex]?.images || [];
+                modalIndex = 0;
                 if(modalImages.length && galleryModal && modalImg){
                     modalImg.src = modalImages[0];
                     galleryModal.style.display = 'flex';
@@ -1051,6 +1255,19 @@
                 }
             }
             
+            // Function to open the modal from the Gallery Section (uses ALL images)
+            function openGalleryModal(flatGalleryIndex) {
+                // Use the globally rendered flat list of all images
+                modalImages = allGalleryImages.map(img => img.url);
+                modalIndex = flatGalleryIndex;
+                
+                if(modalImages.length && galleryModal && modalImg){
+                    modalImg.src = modalImages[modalIndex];
+                    galleryModal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+
             function closeGalleryModal(){ 
                 if(galleryModal){
                     galleryModal.style.display = 'none'; 
@@ -1070,7 +1287,7 @@
                 modalImg.src = modalImages[modalIndex]; 
             }
 
-            // Contact Info Modal Functions (NEW)
+            // Contact Info Modal Functions
             function showContactModal() {
                 if (contactModal) {
                     contactModal.classList.add('show');
@@ -1086,12 +1303,13 @@
             }
             
             // Expose updated functions globally
-            window.openGalleryModal = openGalleryModal; 
+            window.openProjectModal = openProjectModal; // Renamed old function
+            window.openGalleryModal = openGalleryModal; // New function for flat gallery
             window.closeGalleryModal = closeGalleryModal; 
             window.prevImage = prevImage; 
             window.nextImage = nextImage;
-            window.showContactModal = showContactModal; // NEW
-            window.closeContactModal = closeContactModal; // NEW
+            window.showContactModal = showContactModal; 
+            window.closeContactModal = closeContactModal; 
             
             // ---------- Menu and Init logic (Unmodified) ----------
 
@@ -1113,6 +1331,7 @@
 
             function initNav(){
                 const links = document.querySelectorAll('.nav-links a, .mobile-nav a');
+                // Get all relevant sections for navigation highlighting
                 const sections = [...document.querySelectorAll('section[id]')]; 
 
                 function highlight(){
@@ -1149,6 +1368,7 @@
 
             document.addEventListener('DOMContentLoaded', () => {
                 initTheme();
+                initFirebase(); // INITIALIZE FIREBASE
                 
                 // Immediately prevent scrolling until preloader is done
                 document.body.style.overflow = 'hidden'; 

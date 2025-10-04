@@ -1,1174 +1,154 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vijayaragavan Saravanan - Embedded Systems Engineer</title>
-    <!-- Load Tailwind CSS (assumed available in this environment) -->
+    <title>Vijayaragavan S. - ECE Portfolio</title>
+    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Inter Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Roboto+Mono:wght{400;600}&display=swap" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <!-- GSAP Libraries for Animation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    
     <style>
-        /* Base Variables and Theme Setup */
-        :root{
-            --bg: #0d1117; /* Deep Charcoal */
-            --text: #e6edf3; 
-            --card: #161b22; 
-            --accent: #06b6d4; /* Electric Cyan */
-            --muted: #8891a0; 
-            --green: #4CAF50;
-            --font-mono: 'Roboto Mono', monospace;
-            --header-height: 4.6rem;
-            --bold-text-color: #f7f7f7; /* High contrast white for dark mode b tags */
+        /* Custom styles for Inter font and general body appearance */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+            color: #333;
         }
-        html[data-theme="light"]{
-            --bg: #f5f7f9; 
-            --text: #111; 
-            --card: #ffffff; 
-            --accent: #007acc; /* Primary Darker Blue for light mode */
-            --muted: #666; 
-            --green: #00796B;
-            --bold-text-color: #007acc; /* Accent blue for light mode b tags */
+        .section-header {
+            border-left: 4px solid #10b981; /* Emerald-500 */
+            padding-left: 0.75rem;
         }
-        *{box-sizing:border-box}
-        /* Ensure scroll-padding-top accounts for the sticky header */
-        html{scroll-behavior:smooth; scroll-padding-top: var(--header-height); overflow-x: hidden;}
-        body{margin:0;font-family:"Inter",sans-serif;background:var(--bg);color:var(--text);transition:background .3s,color .3s}
-
-        /* Bold Text Fix for Light Mode */
-        b, .text-white {
-            color: var(--bold-text-color) !important;
-            font-weight: 700;
+        .card {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        html[data-theme="light"] b {
-            color: var(--bold-text-color) !important;
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
-        
-        /* PCB Grid Background (Increased Visibility) */
-        #background-grid {
-            position: fixed;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background-color: var(--bg);
-            background-image: 
-                repeating-linear-gradient(0deg, #333842 0, #333842 1px, transparent 1px, transparent 15px),
-                repeating-linear-gradient(90deg, #333842 0, #333842 1px, transparent 1px, transparent 15px);
-            background-size: 15px 15px;
-            opacity: 0.3;
-            transition: background-color 0.3s, opacity 0.3s;
+        .link-button {
+            transition: background-color 0.3s ease;
         }
-
-        html[data-theme="light"] #background-grid {
-            background-image: 
-                repeating-linear-gradient(0deg, #cccccc 0, #cccccc 1px, transparent 1px, transparent 15px),
-                repeating-linear-gradient(90deg, #cccccc 0, #cccccc 1px, transparent 1px, transparent 15px);
-            opacity: 0.5;
+        .link-button:hover {
+            background-color: #059669; /* Emerald-600 */
         }
-
-        /* ECE Code Stream Overlay */
-        #codeStreamOverlay {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            pointer-events: none;
-            overflow: hidden;
-            opacity: 0.05;
-            font-family: var(--font-mono);
-            font-size: 10px;
-            line-height: 1.2;
-            color: var(--accent);
-            white-space: pre-wrap;
-            transition: opacity 0.3s;
-            animation: scrollCode 200s linear infinite;
-        }
-
-        @keyframes scrollCode { 
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-50%); }
-        }
-
-        html[data-theme="light"] #codeStreamOverlay { opacity: 0; }
-
-        /* Navbar & Z-Index Fixes */
-        .navbar{
-            position:sticky;
-            top:0;
-            z-index: 3000;
-            height:var(--header-height);
-            display:flex;
-            align-items:center;
-            background:rgba(13,17,23,0.95); 
-            backdrop-filter:blur(10px);
-            -webkit-backdrop-filter:blur(10px);
-            border-bottom:1px solid rgba(255,255,255,0.06); 
-            transition: background .3s, border-bottom .3s;
-        }
-        html[data-theme="light"] .navbar {
-            background: rgba(255,255,255,0.95);
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-        }
-        
-        /* --- CLI Style Navigation Links for Desktop --- */
-        .nav-link-cli {
-            font-family: var(--font-mono);
-            text-transform: uppercase;
-            color: var(--muted);
-            font-weight: 400;
-            transition: color 0.3s, transform 0.2s;
-            position: relative;
-            padding: 0.25rem 0.5rem;
-        }
-        
-        /* Brackets before and after */
-        .nav-link-cli::before {
-            content: '[';
-            color: var(--accent);
-            opacity: 0.5;
-            transition: opacity 0.3s;
-        }
-
-        .nav-link-cli::after {
-            content: ']';
-            color: var(--accent);
-            opacity: 0.5;
-            transition: opacity 0.3s;
-        }
-
-        .nav-link-cli:hover,
-        .nav-link-cli.active {
-            color: var(--accent);
-            transform: translateY(-2px);
-        }
-        
-        /* Hover effect: make brackets fully opaque */
-        .nav-link-cli:hover::before,
-        .nav-link-cli:hover::after {
-            opacity: 1;
-        }
-
-        .nav-link-cli.active::before,
-        .nav-link-cli.active::after {
-             opacity: 1;
-        }
-        /* --- END CLI Style Navigation Links --- */
-
-
-        /* --- Profile Picture Styling --- */
-        .profile-card-container {
-            width: 256px;
-            height: 300px;
-            padding: 1rem;
-            position: relative;
-            border-radius: 1rem;
-            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(76, 175, 80, 0.1)); 
-            z-index: 10;
-            cursor: pointer; /* Added for interactivity */
-        }
-
-        .profile-img-frame {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            border-radius: 0.75rem;
-            border: 3px solid var(--accent); /* Accent color border */
-            position: relative;
-        }
-
-        .profile-img {
-            filter: grayscale(20%) brightness(90%); /* Subtle filter to match tech theme */
-            transition: filter 0.5s ease-in-out;
-        }
-
-        .profile-card-container:hover .profile-img {
-            filter: grayscale(0%) brightness(100%); 
-        }
-
-        /* Holographic Glow Effect */
-        .holographic-glow::before {
-            content: '';
-            position: absolute;
-            inset: -10px;
-            z-index: -1;
-            border-radius: 1.5rem;
-            /* Neon Cyan/Green Glow */
-            background: conic-gradient(from 180deg at 50% 50%, 
-                rgba(6, 182, 212, 0.0), 
-                rgba(6, 182, 212, 0.6), 
-                rgba(76, 175, 80, 0.6), 
-                rgba(6, 182, 212, 0.0)
-            );
-            filter: blur(20px);
-            opacity: 0.6;
-            animation: glow-pulse 5s infinite alternate;
-        }
-
-        @keyframes glow-pulse {
-            0% { transform: scale(1); opacity: 0.5; }
-            100% { transform: scale(1.05); opacity: 0.8; }
-        }
-        /* --- END Profile Picture Styling --- */
-
-
-        /* Card Styles */
-        .project-card, .experience-card, .education-card, .cert-card {
-            background: var(--card); /* Base background for light mode fix */
-        }
-        html[data-theme="light"] .project-card, html[data-theme="light"] .experience-card, html[data-theme="light"] .education-card, html[data-theme="light"] .cert-card {
-            background: var(--card);
-            border-color: rgba(0, 122, 204, 0.2);
-        }
-        
-        /* Skill Bar Styling Fixes for Light Mode */
-        .skill-tile {
-            background: var(--card); /* Ensure skill tile has a visible background */
-            padding: 1rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .skill-tile .skill-bar-wrap {
-            background-color: var(--muted); /* Use muted color for bar background */
-        }
-        
-        .skill-tile .skill-bar {
-            background: linear-gradient(90deg, var(--green), var(--accent));
-        }
-
-        /* List Styling for Points (Better Contrast) */
-        .card-points li {
-            color: var(--muted); /* Use muted for general list text */
-        }
-        
-        /* Preloader Styles */
-        #preloader {
-            position: fixed;
-            inset: 0;
-            background: var(--bg);
-            z-index: 5000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font-mono);
-            color: var(--accent);
-        }
-
-        .ic-chip {
-            width: 80px;
-            height: 80px;
-            position: relative;
-            transform: rotate(45deg);
-        }
-
-        .ic-chip .body {
-            width: 100%;
-            height: 100%;
-            background: var(--card);
-            border: 4px solid var(--accent);
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
-            animation: pulse-border 1.5s infinite alternate;
-        }
-        
-        @keyframes pulse-border {
-            from { box-shadow: 0 0 10px rgba(6, 182, 212, 0.2); }
-            to { box-shadow: 0 0 30px rgba(6, 182, 212, 0.6); }
-        }
-
-        .ic-chip .pin {
-            position: absolute;
-            width: 4px;
-            height: 20px;
-            background: var(--muted);
-            box-shadow: 0 0 5px rgba(255,255,255,0.2);
-            opacity: 0; /* GSAP will animate this */
-        }
-
-        /* --- Custom Contact Modal Style --- */
-        .contact-modal-overlay {
-            position: fixed;
-            inset: 0;
-            background-color: rgba(0, 0, 0, 0.85);
-            z-index: 4500;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-        }
-
-        .contact-modal-content {
-            background: var(--card);
-            border: 3px solid var(--accent);
-            border-radius: 1rem;
-            padding: 2rem;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 0 40px var(--accent);
-            transform: translateY(50px);
-            transition: transform 0.3s ease-out;
-        }
-
-        .contact-modal-overlay.show {
-            display: flex;
-            opacity: 1;
-        }
-
-        .contact-modal-overlay.show .contact-modal-content {
-            transform: translateY(0);
-        }
-        /* --- End Custom Contact Modal Style --- */
-        
     </style>
 </head>
-<body>
+<body class="min-h-screen p-4 sm:p-8">
 
-    <!-- --- ECE Preloader --- -->
-    <div id="preloader">
-        <div class="ic-chip" id="ic-chip">
-            <div class="body"></div>
-            <!-- Pins (will be animated by GSAP) -->
-            <div class="pin" style="top: -15px; left: 10px;"></div>
-            <div class="pin" style="top: -15px; right: 10px;"></div>
-            <div class="pin" style="bottom: -15px; left: 10px;"></div>
-            <div class="pin" style="bottom: -15px; right: 10px;"></div>
-            <div class="pin" style="left: -15px; top: 10px; transform: rotate(90deg);"></div>
-            <div class="pin" style="left: -15px; bottom: 10px; transform: rotate(90deg);"></div>
-            <div class="pin" style="right: -15px; top: 10px; transform: rotate(90deg);"></div>
-            <div class="pin" style="right: -15px; bottom: 10px; transform: rotate(90deg);"></div>
-        </div>
-        <p class="mt-8 text-xl tracking-wider">Loading ECE System...</p>
-    </div>
-    <!-- --- End Preloader --- -->
+    <div class="max-w-4xl mx-auto">
 
-    <!-- Scroll Progress Bar -->
-    <div id="scroll-progress" class="fixed top-0 left-0 h-1 w-0 bg-cyan-500 z-4000 transition-all duration-100 ease-linear"></div>
-
-    <!-- PCB Grid Background -->
-    <div id="background-grid"></div>
-
-    <!-- ECE Code Stream Overlay -->
-    <div id="codeStreamOverlay"></div>
-    
-    <!-- Watermark (FIX: Hidden on small screens) -->
-    <div id="watermark" class="fixed left-3 bottom-3 text-[rgba(255,255,255,0.03)] font-extrabold tracking-widest text-2xl z-10 pointer-events-none hidden md:block">ECE PORTFOLIO</div>
-
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="mobile-menu fixed inset-0 bg-gray-900 z-[4000] transform translate-x-full transition-transform duration-400 ease-in-out flex flex-col pt-[var(--header-height)]">
-        <div class="mobile-nav p-6 md:p-10 flex flex-col gap-6 h-full">
-            <ul class="list-none p-0 m-0 flex flex-col gap-4">
-                <li><a href="#about" class="text-white text-2xl font-bold block py-2 border-b border-gray-700 hover:text-cyan-400 transition-colors">About</a></li>
-                <li><a href="#education" class="text-white text-2xl font-bold block py-2 border-b border-gray-700 hover:text-cyan-400 transition-colors">Education</a></li>
-                <li><a href="#projects" class="text-white text-2xl font-bold block py-2 border-b border-gray-700 hover:text-cyan-400 transition-colors">Projects</a></li>
-                <li><a href="#skills" class="text-white text-2xl font-bold block py-2 border-b border-gray-700 hover:text-cyan-400 transition-colors">Skills</a></li>
-                <li><a href="#experience" class="text-white text-2xl font-bold block py-2 border-b border-gray-700 hover:text-cyan-400 transition-colors">Experience</a></li>
-                <li><a href="#certifications" class="text-white text-2xl font-bold block py-2 border-b border-gray-700 hover:text-cyan-400 transition-colors">Certifications</a></li>
-                <li><a href="#contact" class="text-white text-2xl font-bold block py-2 border-b border-gray-700 hover:text-cyan-400 transition-colors">Contact</a></li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Navbar -->
-    <header class="navbar">
-        <div class="nav-flex w-full max-w-7xl mx-auto px-5 items-center grid grid-cols-3 md:grid-cols-3">
-            
-            <!-- Left: Brand -->
-            <span class="nav-brand text-left font-extrabold text-cyan-400 tracking-wider text-xl col-span-1">VS ECE DEV</span>
-            
-            <!-- Center: Desktop Links (Hidden on Mobile) -->
-            <nav class="nav-desktop hidden md:block col-span-1 justify-self-center">
-                <ul class="nav-links flex gap-5 list-none m-0 p-0">
-                    <li><a href="#about" class="nav-link-cli">About</a></li>
-                    <li><a href="#projects" class="nav-link-cli">Projects</a></li>
-                    <li><a href="#skills" class="nav-link-cli">Skills</a></li>
-                    <li><a href="#contact" class="nav-link-cli">Contact</a></li>
-                </ul>
-            </nav>
-            
-            <!-- Right: Controls & Hamburger -->
-            <div class="right-nav col-span-2 md:col-span-1 justify-self-end flex items-center gap-4">
-                
-                <!-- Contact Button (Desktop Only CTA) -->
-                <a href="#contact" class="hidden md:flex items-center gap-2 font-bold text-sm text-white bg-green-600 px-3 py-2 rounded-full hover:bg-green-700 transition-colors">
-                    <i class="fas fa-satellite-dish"></i>
-                    Connect
-                </a>
-
-                <!-- Theme Toggle -->
-                <button id="theme-toggle" class="theme-toggle bg-transparent border-none text-cyan-400 text-lg cursor-pointer p-2"><i class="fas fa-sun"></i></button>
-
-                <!-- Hamburger (Mobile Only) -->
-                <button id="hamburger" class="hamburger md:hidden bg-transparent border-none p-2 cursor-pointer z-[4001]">
-                    <span class="block w-5 h-0.5 bg-cyan-400 my-1 transition-all duration-300"></span>
-                    <span class="block w-5 h-0.5 bg-cyan-400 my-1 transition-all duration-300"></span>
-                    <span class="block w-5 h-0.5 bg-cyan-400 my-1 transition-all duration-300"></span>
-                </button>
+        <!-- Header Section -->
+        <header class="text-center py-8 bg-white card rounded-xl mb-8">
+            <div class="mb-4 w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-emerald-500">
+                <!-- PROFILE PHOTO LINK: Vijayaragavan S.png -->
+                <img src="Vijayaragavan S.png" alt="Profile Photo of Vijayaragavan S." class="w-full h-full object-cover">
             </div>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main>
-        <div class="container max-w-7xl mx-auto px-5">
+            <h1 class="text-4xl font-extrabold text-gray-800">Vijayaragavan Saravanan</h1>
+            <p class="text-xl text-gray-500 mt-1">Electronics & Communication Engineer | Embedded Systems & IoT</p>
             
-            <!-- Hero Section -->
-            <section id="about" class="hero-wrapper min-h-[calc(100vh-var(--header-height))] flex items-center py-10 md:py-16">
-                <div class="hero flex flex-col md:flex-row-reverse items-center justify-between w-full gap-8">
-                    
-                    <!-- Profile Photo Card (Now clickable to show contact modal) -->
-                    <div class="hero-right flex justify-center flex-shrink-0">
-                        <div class="profile-card-container holographic-glow" id="profile-container" onclick="showContactModal()">
-                            <div class="profile-img-frame">
-                                <img id="profile-img" 
-                                    src="uploaded:Vijayaragavan S.png-553b115a-48f7-482a-b124-36c73624ed54" 
-                                    alt="Vijayaragavan Saravanan, ECE Developer" 
-                                    class="profile-img w-full h-full object-cover rounded-lg"
-                                    onerror="this.onerror=null; this.src='https://placehold.co/256x300/06B6D4/FFFFFF?text=V+S';" 
-                                    loading="eager"
-                                >
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Text Content -->
-                    <div class="hero-left flex-1 max-w-3xl text-center md:text-left">
-                        <p class="text-gray-400 mb-2 text-sm">Hello! I am a final-year ECE student.</p>
-                        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight text-white">
-                            <span>Vijayaragavan Saravanan</span>
-                        </h1>
-                        <p id="typewriter" class="text-xl md:text-2xl text-cyan-400 min-h-[30px] mt-1 font-bold font-[var(--font-mono)] tracking-wider"></p>
-                        <p class="text-gray-400 leading-relaxed mt-4 max-w-2xl mx-auto md:mx-0">
-                            I specialize in <b class="text-white">embedded systems and industrial automation</b>. My expertise includes <b class="text-white">C/Python, STM32/ESP32</b> microcontrollers, and <b class="text-white">IoT protocols</b>, focusing on innovative, technology-driven hardware and software integration projects.
-                        </p>
-                        <div class="mt-8">
-                            <a href="#contact" class="px-6 py-3 rounded-xl inline-flex items-center gap-2 font-bold bg-green-600 text-white shadow-lg shadow-green-600/30 hover:bg-green-700 transition-all duration-200 transform hover:scale-[1.03]">
-                                <i class="fas fa-hand-point-right"></i>
-                                Get in touch
-                            </a>
-                        </div>
-                    </div>
+            <!-- Links Section -->
+            <div class="flex flex-wrap justify-center gap-3 mt-4">
+                <!-- RESUME LINK: CV_VIjay.pdf -->
+                <a href="CV_VIjay.pdf" target="_blank" class="link-button bg-emerald-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-emerald-600 transition duration-300">
+                    View Resume (PDF)
+                </a>
+                <!-- GITHUB PROFILE LINK: Using the username provided in the project link -->
+                <a href="https://github.com/vijay-saravanan" target="_blank" class="link-button bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-800 transition duration-300">
+                    GitHub Profile
+                </a>
+            </div>
+        </header>
 
+        <!-- Education Section -->
+        <section class="mb-8 p-6 bg-white card rounded-xl">
+            <h2 class="text-2xl font-bold mb-4 section-header text-gray-700">Education</h2>
+            <div class="space-y-4">
+                <div class="border-b pb-3">
+                    <h3 class="text-lg font-semibold">B.E. Electronics & Communication Engineering</h3>
+                    <p class="text-gray-600">Kathir College of Engineering, Coimbatore (Anna University)</p>
+                    <p class="text-sm text-gray-500">2021-2025 | CGPA: 7.93/10</p>
                 </div>
-            </section>
+                <div>
+                    <h3 class="text-lg font-semibold">Feststellungsprüfung (FSP)</h3>
+                    <p class="text-gray-600">Studienkolleg, Hochschule Zittau/Görlitz, Germany</p>
+                    <p class="text-sm text-gray-500">2016-2017</p>
+                </div>
+            </div>
+        </section>
 
-            <!-- Education Section -->
-            <section id="education" class="section my-24">
-                <h2 class="section-title text-center text-3xl font-bold font-[var(--font-mono)] text-cyan-400 mb-10">ACADEMIC JOURNEY</h2>
-                <div class="education-grid grid grid-cols-1 md:grid-cols-3 gap-6" id="education-grid">
-                    <!-- Education cards will be injected here -->
+        <!-- Project Spotlight 1: Advanced Human Life Detection -->
+        <section class="mb-8 p-6 bg-white card rounded-xl">
+            <h2 class="text-2xl font-bold mb-4 section-header text-gray-700">Project 1: Advanced Human Life Detection</h2>
+            <div class="md:flex md:space-x-6">
+                <!-- Project Image: front.jpeg (chosen from fullbox.jpeg, front.jpeg) -->
+                <div class="md:w-1/2 mb-4 md:mb-0">
+                    <img src="front.jpeg" alt="Advanced Human Life Detection Prototype" class="w-full h-auto rounded-lg border border-gray-200">
                 </div>
-            </section>
-            
-            <!-- Projects Section -->
-            <section id="projects" class="section my-24">
-                <h2 class="section-title text-center text-3xl font-bold font-[var(--font-mono)] text-cyan-400 mb-10">PROJECT LOGS</h2>
-                <div class="projects-grid grid grid-cols-1 md:grid-cols-3 gap-6" id="projects-grid">
-                    <!-- Project cards will be injected here -->
-                </div>
-            </section>
-
-            <!-- Skills Section -->
-            <section id="skills" class="section my-24">
-                <h2 class="section-title text-center text-3xl font-bold font-[var(--font-mono)] text-cyan-400 mb-10">TECHNICAL CORE</h2>
-                <div class="skills-grid grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4" id="skills-grid">
-                    <!-- Skill tiles will be injected here -->
-                </div>
-            </section>
-
-            <!-- Experience Section -->
-            <section id="experience" class="section my-24">
-                <h2 class="section-title text-center text-3xl font-bold font-[var(--font-mono)] text-cyan-400 mb-10">PROFESSIONAL DATA</h2>
-                <div class="experience-grid grid grid-cols-1 md:grid-cols-2 gap-6" id="experience-grid">
-                    <!-- Experience cards will be injected here -->
-                </div>
-            </section>
-            
-            <!-- Certifications Section -->
-            <section id="certifications" class="section my-24">
-                <h2 class="section-title text-center text-3xl font-bold font-[var(--font-mono)] text-cyan-400 mb-10">CERTIFICATIONS & TRAINING</h2>
-                <div class="certifications-grid grid grid-cols-1 md:grid-cols-3 gap-6" id="certifications-grid">
-                    <!-- Certification cards will be injected here -->
-                </div>
-            </section>
-
-            <!-- Contact Section -->
-            <section id="contact" class="section my-24">
-                <h2 class="section-title text-center text-3xl font-bold font-[var(--font-mono)] text-cyan-400 mb-10">COMMUNICATION LINK</h2>
-                <div class="text-center max-w-2xl mx-auto pt-4">
-                    <p class="text-gray-400 mb-6">I am ready for immediate joining. Connect with me directly via email or phone.</p>
-                    <a href="mailto:vijaysaravanan1609@gmail.com" class="px-8 py-4 rounded-xl inline-flex items-center gap-3 font-bold bg-cyan-600 text-white shadow-xl shadow-cyan-600/30 hover:bg-cyan-700 transition-all duration-200 transform hover:scale-[1.03] text-lg">
-                        <i class="fas fa-envelope"></i>
-                        vijaysaravanan1609@gmail.com
+                <!-- Project Description -->
+                <div class="md:w-1/2 space-y-3">
+                    <p class="text-gray-600">
+                        Built a prototype using multi-sensor fusion, signal processing, and Machine Learning to detect vital signs
+                        under debris for disaster recovery efforts. This project showcases proficiency in signal integrity and embedded ML on an STM32 platform.
+                    </p>
+                    <ul class="list-disc list-inside text-gray-600">
+                        <li>**Technologies:** STM32, Sensor Fusion, Embedded ML, Signal Processing.</li>
+                        <li>**Role:** Prototype Design and Implementation.</li>
+                    </ul>
+                    <!-- GITHUB PROJECT LINK -->
+                    <a href="https://github.com/vijay-saravanan/Advanced-Human-Life-Detection" target="_blank" class="inline-block link-button bg-emerald-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-emerald-600 transition duration-300 text-sm">
+                        View Project Repository
+                    </a>
+                    <!-- PROJECT REPORT LINK -->
+                    <a href="project-report.pdf" target="_blank" class="ml-2 inline-block link-button bg-indigo-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-indigo-600 transition duration-300 text-sm">
+                        View Full Report (PDF)
                     </a>
                 </div>
-                <div class="flex justify-center gap-6 mt-6">
-                    <a href="https://linkedin.com/in/vijayaragavansaravanan" target="_blank" aria-label="LinkedIn" class="text-cyan-400 text-3xl hover:text-white transition-colors"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" target="_blank" aria-label="GitHub" class="text-cyan-400 text-3xl hover:text-white transition-colors"><i class="fab fa-github"></i></a>
-                </div>
-            </section>
-        </div>
-    </main>
+            </div>
+        </section>
 
-    <!-- Footer -->
-    <footer class="text-center py-6 bg-transparent text-gray-500 border-t border-gray-800">
-        &copy; <span id="year">2024</span> Vijayaragavan Saravanan. ECE Portfolio.
-    </footer>
-
-    <!-- Image Gallery Modal (Renamed from #modal) -->
-    <div id="gallery-modal" class="modal fixed inset-0 bg-black/90 z-3000 hidden items-center justify-center" onclick="closeGalleryModal()">
-        <button class="close absolute top-7 right-9 bg-black/50 text-white p-3 rounded-full text-2xl" aria-label="Close" onclick="closeGalleryModal()"><i class="fas fa-times"></i></button>
-        <button class="prev absolute left-7 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-3 rounded-full text-2xl" aria-label="Previous Image" onclick="prevImage(); event.stopPropagation();"><i class="fas fa-chevron-left"></i></button>
-        <img id="modal-img" src="" alt="Project image gallery view" class="max-w-[90%] max-h-[90%] rounded-lg border-4 border-cyan-400/50 shadow-2xl">
-        <button class="next absolute right-7 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-3 rounded-full text-2xl" aria-label="Next Image" onclick="nextImage(); event.stopPropagation();"><i class="fas fa-chevron-right"></i></button>
-    </div>
-
-    <!-- NEW: Contact Info Modal -->
-    <div id="contact-modal" class="contact-modal-overlay" onclick="closeContactModal()">
-        <div class="contact-modal-content" onclick="event.stopPropagation()">
-            <h3 class="text-3xl font-bold text-cyan-400 mb-4 font-[var(--font-mono)]">ACCESS GRANTED</h3>
-            <p class="text-lg text-white mb-6">Initiating Communication Link...</p>
-            
-            <div class="space-y-4">
-                <div class="flex items-center gap-3 text-white">
-                    <i class="fas fa-user text-xl text-green-400"></i>
-                    <span class="font-bold text-xl">Vijayaragavan Saravanan</span>
+        <!-- Project Spotlight 2: Gesture Recognition & Switch -->
+        <section class="mb-8 p-6 bg-white card rounded-xl">
+            <h2 class="text-2xl font-bold mb-4 section-header text-gray-700">Project 2: Gesture-Controlled Switch & Recognition</h2>
+            <div class="md:flex md:space-x-6">
+                <!-- Project Image: gesture.jpeg (chosen from gesture.jpeg, switch.jpeg) -->
+                <div class="md:w-1/2 mb-4 md:mb-0">
+                    <img src="gesture.jpeg" alt="Gesture Recognition System Screenshot" class="w-full h-auto rounded-lg border border-gray-200">
                 </div>
-                <div class="flex items-center gap-3 text-gray-300">
-                    <i class="fas fa-phone text-xl text-green-400"></i>
-                    <a href="tel:+918754197055" class="hover:text-cyan-400 transition-colors font-mono">+91 8754197055</a>
-                </div>
-                <div class="flex items-center gap-3 text-gray-300">
-                    <i class="fas fa-envelope text-xl text-green-400"></i>
-                    <a href="mailto:vijaysaravanan1609@gmail.com" class="hover:text-cyan-400 transition-colors font-mono">vijaysaravanan1609@gmail.com</a>
-                </div>
-                <div class="flex items-center gap-3 text-gray-300">
-                    <i class="fab fa-linkedin text-xl text-green-400"></i>
-                    <a href="https://linkedin.com/in/vijayaragavansaravanan" target="_blank" class="hover:text-cyan-400 transition-colors font-mono">LinkedIn Profile</a>
+                <!-- Project Description -->
+                <div class="md:w-1/2 space-y-3">
+                    <p class="text-gray-600">
+                        Developed two related applications: a **Gesture-Control Contactless Switch** (Arduino-based with APDS 9960) to enhance hygiene, and a **Gesture Detection System** using OpenCV that achieved 85% accuracy in real-time under variable lighting.
+                    </p>
+                    <ul class="list-disc list-inside text-gray-600">
+                        <li>**Technologies:** Arduino, APDS 9960, OpenCV, Python.</li>
+                        <li>**Impact:** Contributes to smart, hygienic system design.</li>
+                    </ul>
+                    <!-- GITHUB PROJECT LINK (Placeholder - UPDATE THIS URL) -->
+                    <a href="https://github.com/vijay-saravanan/Gesture-Recognition-Repo-Link-Needs-Update" target="_blank" class="inline-block link-button bg-emerald-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-emerald-600 transition duration-300 text-sm">
+                        View Project Repository (Update Link)
+                    </a>
+                    <!-- Used switch.jpeg image as secondary reference -->
                 </div>
             </div>
+        </section>
 
-            <button onclick="closeContactModal()" class="mt-8 w-full py-2 rounded-lg bg-red-600 text-white font-bold hover:bg-red-700 transition-colors">
-                <i class="fas fa-lock"></i> CLOSE
-            </button>
-        </div>
+        
+        <!-- Skills Section -->
+        <section class="p-6 bg-white card rounded-xl">
+            <h2 class="text-2xl font-bold mb-4 section-header text-gray-700">Technical Skills</h2>
+            <div class="flex flex-wrap gap-2">
+                <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">C Programming</span>
+                <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">Python</span>
+                <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">MATLAB</span>
+                <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">Embedded Systems</span>
+                <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">IoT (ESP32)</span>
+                <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">STM32/PIC</span>
+                <span class="bg-purple-100 text-purple-800 text-sm font-medium px-3 py-1 rounded-full">PLC Integration</span>
+                <span class="bg-purple-100 text-purple-800 text-sm font-medium px-3 py-1 rounded-full">Cadence Virtuoso</span>
+            </div>
+        </section>
+
     </div>
 
-
-    <script>
-        // Mock data now using arrays for bullet points (UPDATED with Education and Certifications)
-        const portfolioData = {
-            "education": [
-                {
-                    "title": "B.E. Electronics & Communication Engineering",
-                    "institution": "Kathir College of Engineering, Coimbatore (Anna University)",
-                    "timeframe": "2021-2025",
-                    "details": "CGPA: 7.93/10 (75.3%)"
-                },
-                {
-                    "title": "Feststellungsprüfung (FSP)",
-                    "institution": "Studienkolleg, Hochschule Zittau/Görlitz, Germany",
-                    "timeframe": "2016-2017",
-                    "details": "Result: 77.5%"
-                },
-                {
-                    "title": "Higher Secondary Certificate (HSC)",
-                    "institution": "SRV Boys Hr. Sec. School, Rasipuram",
-                    "timeframe": "2015",
-                    "details": "Result: 85.6%"
-                }
-            ],
-            "certifications": [
-                {
-                    "title": "Cadence Chronicles",
-                    "icon": "fa-microchip",
-                    "points": [
-                        "Focused on <b class='text-white'>Cadence Virtuoso for PMOS/NMOS transistor and inverter design</b>.",
-                        "Gained hands-on experience in simulation and verification of CMOS logic."
-                    ]
-                },
-                {
-                    "title": "STM32 Microcontroller Workshop",
-                    "icon": "fa-microchip",
-                    "points": [
-                        "Covered <b class='text-white'>STM32 architecture, programming, and peripheral interfaces</b>.",
-                        "Implemented hands-on projects using STM32 development boards."
-                    ]
-                },
-                {
-                    "title": "Optical Communication Workshop",
-                    "icon": "fa-wave-square",
-                    "points": [
-                        "Simulated and analyzed <b class='text-white'>optical fiber communication systems</b> using MATLAB.",
-                        "Explored concepts of signal degradation and compensation techniques."
-                    ]
-                }
-            ],
-            "projects": [
-                {
-                    "id": "p1",
-                    "title": "Advanced Human Life Detection",
-                    "timeframe": "Apr - May 2025",
-                    "images": ["https://placehold.co/400x250/06B6D4/FFFFFF?text=Life+Detection+Prototype"],
-                    "points": [
-                        "Built a prototype using <b class='text-white'>multi-sensor fusion, signal processing, and Machine Learning (ML)</b>.",
-                        "Designed to detect <b class='text-white'>vital signs of humans under debris</b> for disaster recovery scenarios."
-                    ]
-                },
-                {
-                    "id": "p2",
-                    "title": "Gesture Detection with OpenCV",
-                    "timeframe": "Mar 2024",
-                    "images": ["https://placehold.co/400x250/4CAF50/0D1117?text=OpenCV+Detection"],
-                    "points": [
-                        "Designed a real-time gesture recognition system using <b class='text-white'>Python and OpenCV</b>.",
-                        "Achieved an impressive <b class='text-white'>85% accuracy</b> under variable lighting and background conditions."
-                    ]
-                },
-                {
-                    "id": "p3",
-                    "title": "Gesture-Control Contactless Switch",
-                    "timeframe": "Feb 2024",
-                    "images": ["https://placehold.co/400x250/F05030/FFFFFF?text=Contactless+Switch"],
-                    "points": [
-                        "Created an <b class='text-white'>Arduino-based touch-free switch</b> utilizing the APDS 9960 sensor.",
-                        "A practical solution to reduce infection risks in public appliance control."
-                    ]
-                }
-            ],
-            "skills": [
-                {"name": "C Programming", "proficiency": 95},
-                {"name": "Python", "proficiency": 80},
-                {"name": "STM32", "proficiency": 90},
-                {"name": "ESP32 / Arduino", "proficiency": 85},
-                {"name": "IoT Protocols (MQTT)", "proficiency": 90},
-                {"name": "PLCs & Automation", "proficiency": 75},
-                {"name": "Sensor Integration", "proficiency": 90},
-                {"name": "MATLAB", "proficiency": 75},
-            ],
-            "experience": [
-                {
-                    "title": "Intern - Control Panel Assembler", 
-                    "company": "Lakshmi Electrical Control Systems", 
-                    "duration": "Jan 2025 - Apr 2025", 
-                    "points": [
-                        "Designed and wired industrial control panels integrating <b class='text-white'>PLCs, motors, and sensors</b>.",
-                        "Collaborated on troubleshooting to reduce system testing downtime by <b class='text-white'>20%</b>."
-                    ]
-                },
-                {
-                    "title": "Intern - Automotive Manufacturing", 
-                    "company": "Pricol Engineering Industries Pvt. Ltd.", 
-                    "duration": "Sep 2024 - Nov 2024", 
-                    "points": [
-                        "Supported the manufacturing and final testing of <b class='text-white'>automotive sensors, USB modules, and power accessories</b>.",
-                        "Gained exposure to the complete product lifecycle and quality standards."
-                    ]
-                },
-                {
-                    "title": "Intern - Embedded Systems", 
-                    "company": "Emglitz Technologies", 
-                    "duration": "Jul 2024", 
-                    "points": [
-                        "Developed automation projects using the <b class='text-white'>PIC16F877A microcontroller</b> and peripheral integration.",
-                        "Projects included building a functional <b class='text-white'>Electronic Voting Machine</b> in MPLAB."
-                    ]
-                },
-            ]
-        };
-
-        // JS Script
-        (function(){
-            const $ = id => document.getElementById(id);
-
-            // Elements
-            const codeStream = $('codeStreamOverlay');
-            const projectsGrid = $('projects-grid');
-            const skillsGrid = $('skills-grid');
-            // Renamed project modal to gallery-modal
-            const galleryModal = $('gallery-modal');
-            const modalImg = $('modal-img');
-            // New contact modal
-            const contactModal = $('contact-modal');
-            const hamburger = $('hamburger');
-            const mobileMenu = $('mobile-menu');
-            const themeToggle = $('theme-toggle');
-            const typeEl = $('typewriter');
-            const educationGrid = $('education-grid'); 
-            const experienceGrid = $('experience-grid'); 
-            const certificationsGrid = $('certifications-grid');
-            const preloader = $('preloader');
-
-            // ---------- Theme Toggle ----------
-            function toggleTheme() {
-                const html = document.documentElement;
-                const currentTheme = html.getAttribute('data-theme') || 'dark';
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                
-                html.setAttribute('data-theme', newTheme);
-                localStorage.setItem('theme', newTheme);
-                
-                if (themeToggle) {
-                    themeToggle.innerHTML = newTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-                }
-            }
-
-            function initTheme() {
-                const savedTheme = localStorage.getItem('theme');
-                const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                let initialTheme = 'dark';
-
-                if (savedTheme) {
-                    initialTheme = savedTheme;
-                } else if (!savedTheme && systemPrefersDark) {
-                    initialTheme = 'dark';
-                } else if (!savedTheme && !systemPrefersDark) {
-                    initialTheme = 'light';
-                }
-                
-                document.documentElement.setAttribute('data-theme', initialTheme);
-
-                if (themeToggle) {
-                    themeToggle.innerHTML = initialTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-                    themeToggle.addEventListener('click', toggleTheme);
-                }
-            }
-            // ---------- End Theme Toggle ----------
-
-            // ---------- Typewriter (looping) ----------
-            const roles = ["Embedded Systems Developer", "IoT & Automation Enthusiast", "Student Engineer", "Electronics & Communication Innovator"];
-            let rIdx = 0;
-            let typewriterActive = false;
-            
-            if (typeEl) {
-                function typeLoop(){
-                    typewriterActive = true;
-                    const text = roles[rIdx];
-                    let i = 0;
-                    const step = () => {
-                        if (!typewriterActive) return;
-                        if (i <= text.length) {
-                            typeEl.textContent = text.slice(0, i);
-                            i++;
-                            setTimeout(step, 50);
-                        } else {
-                            setTimeout(() => deleteLoop(), 1200);
-                        }
-                    };
-                    step();
-                }
-                function deleteLoop(){
-                    if (!typewriterActive) return;
-                    let s = typeEl.textContent;
-                    let i = s.length;
-                    const stepD = () => {
-                        if (!typewriterActive) return;
-                        if (i >= 0) {
-                            typeEl.textContent = s.slice(0, i);
-                            i--;
-                            setTimeout(stepD, 25);
-                        } else {
-                            rIdx = (rIdx + 1) % roles.length;
-                            setTimeout(typeLoop, 200);
-                        }
-                    };
-                    stepD();
-                }
-            }
-            
-            // ---------- ECE Code Stream Content Setup ----------
-            const codeSnippet = `
-                // MCU Initialization Code (C/C++)
-                #define F_CPU 16000000UL
-                #include <avr/io.h>
-                // Function: Read Sensor Data
-                int read_adc(int channel) {
-                    ADMUX = (0xF0 & ADMUX) | channel;
-                    ADCSRA |= (1 << ADSC);
-                    while(ADCSRA & (1 << ADSC));
-                    return ADC;
-                }
-                // PID Loop Control Simulation
-                float Kp = 1.2;
-                float Ki = 0.05;
-                float Kd = 0.01;
-                float error, integral, derivative, output;
-                // Main Loop - Embedded OS Kernel Tick
-                void task_control_loop() {
-                    float current = read_adc(0);
-                    error = SETPOINT - current;
-                    integral += error * DT;
-                    derivative = (error - last_error) / DT;
-                    output = Kp * error + Ki * integral + Kd * derivative;
-                    set_pwm_duty(output);
-                    last_error = error;
-                }
-                // Digital Logic Gate: AND (Python/VHDL-like)
-                def logic_and(A, B):
-                    return A and B;
-                // IoT MQTT Payload
-                {"device_id": "STM32_001", "temp": 25.4, "status": "OK"}
-                // END OF CODE BLOCK 001
-            `;
-            if (codeStream) {
-                // Duplicate and wrap the content to ensure continuous scrolling
-                codeStream.innerHTML = codeSnippet.repeat(200); 
-            }
-
-            // ---------- Data handling and rendering ----------
-            function fetchData(){
-                renderEducation(); 
-                renderProjects();
-                renderSkills();
-                renderExperience();
-                renderCertifications(); 
-            }
-
-            function createCard(title, content, type, dataId) {
-                const card = document.createElement('article');
-                card.className = `${type}-card p-5 rounded-xl transition-all duration-300 transform border border-gray-800 hover:shadow-cyan-500/50 hover:shadow-xl`;
-                card.innerHTML = content;
-                if (type === 'project' && dataId !== null) {
-                    card.addEventListener('click', () => openGalleryModal(dataId));
-                }
-                if (type === 'skill') {
-                    card.classList.add('skill-tile'); // Add skill-tile class for styling
-                }
-                return card;
-            }
-
-            function renderPoints(pointsArray) {
-                if (!pointsArray || pointsArray.length === 0) return '';
-                let html = '<ul class="card-points mt-3 text-sm text-gray-400 list-disc pl-5">';
-                pointsArray.forEach(point => {
-                    const lightModeFix = point.replace(/<b class='text-white'>/g, '<b>').replace(/<\/b>/g, '</b>'); 
-                    html += `<li class="my-1">${lightModeFix}</li>`;
-                });
-                html += '</ul>';
-                return html;
-            }
-
-            // Render Education Section
-            function renderEducation() {
-                if (!educationGrid) return;
-                educationGrid.innerHTML = '';
-                
-                portfolioData.education.forEach((edu, i) => {
-                    const content = `
-                        <p class="text-sm font-mono text-gray-500 mb-2 flex items-center gap-2"><i class="fas fa-calendar"></i>${edu.timeframe || ''}</p>
-                        <h3 class="text-xl font-bold text-white mb-1">${edu.title || 'Qualification'}</h3>
-                        <p class="text-cyan-400 font-semibold mb-2">${edu.institution || 'Institution'}</p>
-                        <p class="text-md text-gray-400">${edu.details || ''}</p>
-                    `;
-                    educationGrid.appendChild(createCard(edu.title, content, 'education', null));
-                });
-            }
-
-            // Render Certifications Section
-            function renderCertifications() {
-                if (!certificationsGrid) return;
-                certificationsGrid.innerHTML = '';
-                
-                portfolioData.certifications.forEach((cert, i) => {
-                    const content = `
-                        <div class="text-3xl text-green-400 mb-3"><i class="fas ${cert.icon ? 'fa-' + cert.icon : 'fa-award'}"></i></div>
-                        <h3 class="text-xl font-bold text-white mb-1">${cert.title || 'Certification'}</h3>
-                        ${renderPoints(cert.points)}
-                    `;
-                    certificationsGrid.appendChild(createCard(cert.title, content, 'cert', null));
-                });
-            }
-
-            function renderProjects(){
-                if(!projectsGrid) return;
-                projectsGrid.innerHTML = '';
-                
-                portfolioData.projects.forEach((p, i) => {
-                    const content = `
-                        <img src="${p.images?.[0] || 'https://placehold.co/400x250/161B22/8891A0?text=Project'}" 
-                             alt="${p.title}" 
-                             loading="lazy" 
-                             class="w-full h-40 object-cover rounded-lg mb-4 border border-gray-700">
-                        <h3 class="text-xl font-bold text-cyan-400 mb-1">${p.title || 'Untitled Project'}</h3>
-                        <p class="text-sm text-gray-500 mb-2 font-mono">${p.timeframe || ''}</p>
-                        ${renderPoints(p.points)}
-                    `;
-                    projectsGrid.appendChild(createCard(p.title, content, 'project', i));
-                });
-            }
-
-            function renderExperience() {
-                if (!experienceGrid) return;
-                experienceGrid.innerHTML = '';
-
-                (portfolioData.experience || []).forEach((exp, idx) => {
-                    const content = `
-                        <h3 class="text-xl font-bold text-white mb-1">${exp.title}</h3>
-                        <p class="text-cyan-400 font-semibold mb-2">${exp.company}</p>
-                        <p class="text-sm text-gray-500 mb-3 font-mono">${exp.duration}</p>
-                        ${renderPoints(exp.points)}
-                    `;
-                    experienceGrid.appendChild(createCard(exp.title, content, 'experience', idx));
-                });
-            }
-
-            function renderSkills(){
-                if(!skillsGrid) return;
-                skillsGrid.innerHTML = '';
-
-                portfolioData.skills.forEach(s => {
-                    const proficiency = s.proficiency ?? 70; 
-                    const content = `
-                        <span class="text-white font-semibold block mb-2">${s.name || 'Unknown Skill'}</span>
-                        <div class="skill-bar-wrap h-2 bg-gray-800 rounded-full overflow-hidden">
-                            <div class="skill-bar h-full rounded-full" style="width:0" data-p="${proficiency}"></div>
-                        </div>
-                    `;
-                    
-                    skillsGrid.appendChild(createCard(s.name, content, 'skill', null));
-                });
-            }
-
-            // ---------- GSAP entrances & Initialization ----------
-            function runEntrances(){
-                if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-                
-                gsap.registerPlugin(ScrollTrigger);
-
-                // --- 1. Preloader Animation ---
-                gsap.fromTo('#ic-chip .pin', 
-                    { opacity: 0, scale: 0.5 }, 
-                    { 
-                        opacity: 1, 
-                        scale: 1, 
-                        duration: 0.2, 
-                        stagger: 0.05, 
-                        repeat: 4, 
-                        yoyo: true, 
-                        ease: 'power1.out' 
-                    }
-                );
-
-                gsap.to(preloader, {
-                    autoAlpha: 0, 
-                    delay: 1.8, 
-                    duration: 0.8, 
-                    ease: 'power2.inOut',
-                    onComplete: () => {
-                        document.body.style.overflow = '';
-                        startMainAnimations();
-                    }
-                });
-                
-                // --- 2. Main Page Animations (Starts after preloader fades) ---
-                function startMainAnimations() {
-                    // Initial Load Animation (Hero)
-                    gsap.timeline()
-                        .from('.navbar', { y: -20, autoAlpha: 0, duration: 0.6, ease: 'power2.out' })
-                        .from('.hero-left', { y: 30, autoAlpha: 0, duration: 0.8, ease: 'power3.out' }, '-=0.2')
-                        .from('.hero-right', { scale: 0.8, autoAlpha: 0, duration: 0.8, ease: 'back.out(1.4)' }, '-=0.6')
-                        .call(() => { if (typeEl) typeLoop(); });
-                    
-                    // Section Title Animation
-                    gsap.utils.toArray('.section-title').forEach(title => {
-                        gsap.from(title, { 
-                            y: 20, 
-                            autoAlpha: 0, 
-                            duration: 0.8, 
-                            ease: 'power2.out',
-                            scrollTrigger: { trigger: title, start: 'top 90%'}
-                        });
-                    });
-
-                    // Card Stagger Animation (Combined for all card types)
-                    gsap.utils.toArray('.education-card, .project-card, .experience-card, .cert-card').forEach(card => {
-                        gsap.from(card, { 
-                            y: 50, 
-                            autoAlpha: 0, 
-                            duration: 1, 
-                            ease: 'power3.out',
-                            scrollTrigger: { 
-                                trigger: card, 
-                                start: 'top 85%',
-                                once: true 
-                            }
-                        });
-                    });
-
-                    // Skill bar animation
-                    gsap.utils.toArray('.skill-tile').forEach(tile => {
-                        const bar = tile.querySelector('.skill-bar');
-                        if (bar) {
-                            gsap.fromTo(bar, 
-                                { width: 0 }, 
-                                { 
-                                    width: (bar.dataset.p || 70) + '%', 
-                                    duration: 1.2, 
-                                    ease: 'power2.out',
-                                    scrollTrigger: { 
-                                        trigger: tile, 
-                                        start: 'top 85%',
-                                        once: true
-                                    }
-                                }
-                            );
-                        }
-                    });
-                }
-            }
-
-            // ---------- Modal functions (Updated for two modals) ----------
-            let modalImages = [], modalIndex = 0;
-            
-            // Project Gallery Modal Functions
-            function openGalleryModal(index){
-                modalImages = portfolioData.projects[index]?.images || [];
-                modalIndex = 0;
-
-                if(modalImages.length && galleryModal && modalImg){
-                    modalImg.src = modalImages[0];
-                    galleryModal.style.display = 'flex';
-                    document.body.style.overflow = 'hidden';
-                }
-            }
-            
-            function closeGalleryModal(){ 
-                if(galleryModal){
-                    galleryModal.style.display = 'none'; 
-                    document.body.style.overflow = ''; 
-                }
-            }
-            
-            function prevImage(){ 
-                if(!modalImages.length || !modalImg) return; 
-                modalIndex = (modalIndex - 1 + modalImages.length) % modalImages.length; 
-                modalImg.src = modalImages[modalIndex]; 
-            }
-            
-            function nextImage(){ 
-                if(!modalImages.length || !modalImg) return; 
-                modalIndex = (modalIndex + 1) % modalImages.length; 
-                modalImg.src = modalImages[modalIndex]; 
-            }
-
-            // Contact Info Modal Functions (NEW)
-            function showContactModal() {
-                if (contactModal) {
-                    contactModal.classList.add('show');
-                    document.body.style.overflow = 'hidden';
-                }
-            }
-            
-            function closeContactModal() {
-                if (contactModal) {
-                    contactModal.classList.remove('show');
-                    document.body.style.overflow = '';
-                }
-            }
-            
-            // Expose updated functions globally
-            window.openGalleryModal = openGalleryModal; 
-            window.closeGalleryModal = closeGalleryModal; 
-            window.prevImage = prevImage; 
-            window.nextImage = nextImage;
-            window.showContactModal = showContactModal; // NEW
-            window.closeContactModal = closeContactModal; // NEW
-            
-            // ---------- Menu and Init logic (Unmodified) ----------
-
-            function openMobileMenu(){ 
-                if (!mobileMenu || !hamburger) return;
-                mobileMenu.classList.add('open'); 
-                hamburger.classList.add('open');
-                gsap.to(mobileMenu, { x: '0%', duration: 0.45, ease: 'power3.out' }); 
-                document.body.style.overflow = 'hidden'; 
-            }
-            
-            function closeMobileMenu(){ 
-                if (!mobileMenu || !hamburger) return;
-                mobileMenu.classList.remove('open'); 
-                hamburger.classList.remove('open');
-                gsap.to(mobileMenu, { x: '100%', duration: 0.35, ease: 'power3.in' }); 
-                document.body.style.overflow = ''; 
-            }
-
-            function initNav(){
-                const links = document.querySelectorAll('.nav-links a, .mobile-nav a');
-                const sections = [...document.querySelectorAll('section[id]')]; 
-
-                function highlight(){
-                    const headerHeight = document.querySelector('.navbar').offsetHeight + 10;
-                    const st = window.scrollY + headerHeight;
-                    let current = null;
-
-                    for (let i = sections.length - 1; i >= 0; i--) {
-                        const sec = sections[i];
-                        if (sec.offsetTop <= st) {
-                            current = sec.id;
-                            break; 
-                        }
-                    }
-                    
-                    document.querySelectorAll('.nav-links a, .mobile-nav a').forEach(a => {
-                        a.classList.toggle('active', a.getAttribute('href') === '#' + current);
-                        // Add class for CLI style links
-                        if (a.classList.contains('nav-link-cli')) {
-                            a.classList.toggle('active', a.getAttribute('href') === '#' + current);
-                        }
-                    });
-                }
-                
-                window.addEventListener('scroll', highlight);
-                highlight();
-                
-                links.forEach(a => {
-                    a.addEventListener('click', e => {
-                        if(window.innerWidth <= 900) closeMobileMenu();
-                    });
-                });
-            }
-
-            document.addEventListener('DOMContentLoaded', () => {
-                initTheme();
-                
-                // Immediately prevent scrolling until preloader is done
-                document.body.style.overflow = 'hidden'; 
-                
-                fetchData();
-
-                if (hamburger) { 
-                    hamburger.addEventListener('click', () => { 
-                        if (mobileMenu.classList.contains('open')) { closeMobileMenu(); } else { openMobileMenu(); }
-                    }); 
-                }
-
-                window.addEventListener('resize', () => { 
-                    if (window.innerWidth > 900) { closeMobileMenu(); } 
-                });
-
-                initNav();
-                runEntrances(); // This now starts the preloader animation
-                
-                // Scroll progress bar logic
-                const progress = $('scroll-progress');
-                if (progress) {
-                    window.addEventListener('scroll', () => { 
-                        const {scrollTop, scrollHeight, clientHeight} = document.documentElement; 
-                        progress.style.width = ((scrollTop / (scrollHeight - clientHeight)) * 100) + '%'; 
-                    });
-                }
-
-                const yearEl = document.getElementById('year'); 
-                if (yearEl) { yearEl.textContent = new Date().getFullYear(); }
-            });
-        })();
-    </script>
 </body>
 </html>

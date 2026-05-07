@@ -6,10 +6,7 @@
     <title>Vijayaragavan Saravanan | Embedded Systems & IoT Engineer</title>
     
     <meta name="description" content="Portfolio of Vijayaragavan Saravanan, an Embedded Systems and IoT Engineer specializing in STM32, Raspberry Pi, and Industrial Automation.">
-    <meta property="og:title" content="Vijayaragavan Saravanan | Embedded Systems Engineer">
-    <meta property="og:description" content="Exploring the intersection of hardware and software.">
-    <meta property="og:type" content="website">
-
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Roboto+Mono:wght{400;600}&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -31,66 +28,51 @@
         html { scroll-behavior: smooth; scroll-padding-top: var(--header-height); }
         body { margin:0; font-family:"Inter",sans-serif; background:var(--bg); color:var(--text); overflow-x: hidden; }
 
-        /* Grid Background with Fade-out Effect */
         #background-grid {
             position: fixed; inset: 0; z-index: -2;
             background-image: 
                 linear-gradient(to bottom, rgba(13,17,23,0) 0%, rgba(13,17,23,1) 90%),
                 repeating-linear-gradient(0deg, #333842 0, #333842 1px, transparent 1px, transparent 25px),
                 repeating-linear-gradient(90deg, #333842 0, #333842 1px, transparent 1px, transparent 25px);
-            opacity: 0.15;
+            opacity: 0.12;
         }
 
-        /* Glassmorphism Effect */
         .glass {
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             background: var(--card);
             border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
         }
 
-        /* Hero Image Glow */
-        .profile-card-container::after {
-            content: ''; position: absolute; inset: -5px;
-            background: linear-gradient(45deg, var(--accent), var(--green));
-            filter: blur(15px); opacity: 0.3; z-index: -1; border-radius: 1rem;
-        }
+        section { margin-top: 80px; margin-bottom: 80px; opacity: 0; transform: translateY(20px); }
 
-        section { margin-top: 100px; margin-bottom: 100px; opacity: 0; transform: translateY(30px); }
+        .hover-lift:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 30px -15px rgba(6, 182, 212, 0.2); }
 
-        .skill-tile { transition: all 0.3s ease; }
-        .skill-tile:hover { background: rgba(6, 182, 212, 0.1); border-color: var(--accent); }
-
-        .project-card:hover { border-color: var(--accent); box-shadow: 0 10px 30px -15px rgba(6, 182, 212, 0.3); }
-
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
     </style>
 </head>
 <body>
 
     <div id="scroll-progress" class="fixed top-0 left-0 h-1 w-0 bg-cyan-500 z-[5000]"></div>
     <div id="background-grid"></div>
-    
-    <div id="watermark" class="fixed left-5 bottom-5 text-[rgba(255,255,255,0.03)] font-extrabold tracking-widest text-3xl z-10 pointer-events-none hidden lg:block">EMBEDDED SYSTEMS</div>
+    <div id="watermark" class="fixed left-5 bottom-5 text-[rgba(255,255,255,0.03)] font-extrabold tracking-widest text-2xl z-10 pointer-events-none hidden lg:block">EMBEDDED SYSTEMS</div>
 
     <header class="fixed top-0 w-full z-[4000] glass border-b border-white/5">
         <div class="max-w-7xl mx-auto px-6 h-[4.6rem] flex items-center justify-between">
-            <span class="font-black text-cyan-400 tracking-tighter text-2xl">VS EMBEDDED</span>
+            <span class="font-black text-cyan-400 tracking-tighter text-xl">VS EMBEDDED</span>
             <nav class="hidden md:block">
-                <ul class="flex gap-8 font-mono text-xs uppercase tracking-widest">
-                    <li><a href="#about" class="hover:text-cyan-400 transition-colors">/About</a></li>
-                    <li><a href="#projects" class="hover:text-cyan-400 transition-colors">/Projects</a></li>
-                    <li><a href="#skills" class="hover:text-cyan-400 transition-colors">/Skills</a></li>
-                    <li><a href="#contact" class="hover:text-cyan-400 transition-colors">/Contact</a></li>
+                <ul class="flex gap-6 font-mono text-[10px] uppercase tracking-widest">
+                    <li><a href="#about" class="hover:text-cyan-400">/About</a></li>
+                    <li><a href="#education" class="hover:text-cyan-400">/Edu</a></li>
+                    <li><a href="#projects" class="hover:text-cyan-400">/Logs</a></li>
+                    <li><a href="#skills" class="hover:text-cyan-400">/Stack</a></li>
+                    <li><a href="#experience" class="hover:text-cyan-400">/Exp</a></li>
                 </ul>
             </nav>
-            <a href="mailto:vijaysaravanan1609@gmail.com" class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-full text-sm font-bold transition-all transform hover:scale-105">
-                Hire Me
-            </a>
+            <a href="mailto:vijaysaravanan1609@gmail.com" class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-full text-xs font-bold transition-all">Connect</a>
         </div>
     </header>
 
@@ -98,34 +80,52 @@
         
         <section id="about" class="flex flex-col md:flex-row items-center justify-between gap-12 py-12">
             <div class="flex-1 space-y-6 text-center md:text-left">
-                <p class="text-cyan-500 font-mono tracking-widest text-sm uppercase">Available for Hire</p>
+                <p class="text-cyan-500 font-mono tracking-widest text-sm uppercase">Embedded Systems • IoT • Automation</p>
                 <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-none">Vijayaragavan <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-green-400">Saravanan</span></h1>
-                <p id="typewriter" class="text-2xl font-mono text-gray-300 min-h-[40px]"></p>
+                <p id="typewriter" class="text-xl md:text-2xl font-mono text-gray-300 min-h-[40px]"></p>
                 <p class="text-gray-400 text-lg leading-relaxed max-w-2xl">
-                    I am an Embedded Systems and IoT Engineer with experience in sensor integration, industrial automation, and intelligent system development.
+                    I am an Embedded Systems and IoT Engineer with experience in sensor integration, industrial automation, and intelligent embedded system development.
                 </p>
                 <div class="flex flex-wrap gap-4 justify-center md:justify-start">
-                    <a href="uploads/resume.pdf" class="bg-cyan-600 hover:bg-cyan-700 text-white px-8 py-4 rounded-xl font-bold flex items-center gap-2 transition-all">
-                        <i class="fas fa-download"></i> Resume.pdf
+                    <a href="uploads/resume.pdf" target="_blank" class="bg-cyan-600 hover:bg-cyan-700 text-white px-8 py-4 rounded-xl font-bold flex items-center gap-2 transition-all">
+                        <i class="fas fa-download"></i> Download Resume
                     </a>
-                    <a href="#projects" class="border border-gray-700 hover:border-cyan-500 px-8 py-4 rounded-xl font-bold transition-all">
-                        View Projects
+                    <a href="uploads/project-report.pdf" target="_blank" class="border border-gray-700 hover:border-cyan-500 px-8 py-4 rounded-xl font-bold transition-all">
+                        Project Report
                     </a>
                 </div>
             </div>
             
             <div class="relative group">
-                <div class="profile-card-container w-64 h-80 rounded-2xl overflow-hidden glass p-2">
-                    <img src="uploads/Vijayaragavan S.png" alt="Vijayaragavan Saravanan" class="w-full h-full object-cover rounded-xl grayscale group-hover:grayscale-0 transition-all duration-500" onerror="this.src='https://placehold.co/400x500/06B6D4/FFFFFF?text=VS';">
+                <div class="w-64 h-80 rounded-2xl overflow-hidden glass p-2">
+                    <img src="uploads/Vijayaragavan S.png" alt="Profile" class="w-full h-full object-cover rounded-xl grayscale group-hover:grayscale-0 transition-all duration-500" onerror="this.src='https://placehold.co/400x500/06B6D4/FFFFFF?text=VS';">
+                </div>
+            </div>
+        </section>
+
+        <section id="education">
+            <h2 class="text-3xl font-bold mb-12 flex items-center gap-4">
+                <span class="text-cyan-500 font-mono text-xl">00.</span> Education
+            </h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass p-8 rounded-2xl border border-white/5 hover-lift">
+                    <h3 class="text-xl font-bold text-white">B.E. Electronics & Communication Engineering</h3>
+                    <p class="text-cyan-400 text-sm mb-4">Kathir College of Engineering • 2021–2025</p>
+                    <p class="text-gray-400 text-sm">Specialized in Embedded Systems, IoT, Automation, and Electronics Engineering.</p>
+                </div>
+                <div class="glass p-8 rounded-2xl border border-white/5 hover-lift">
+                    <h3 class="text-xl font-bold text-white">Studienkolleg Germany</h3>
+                    <p class="text-cyan-400 text-sm mb-4">Hochschule Zittau/Görlitz</p>
+                    <p class="text-gray-400 text-sm">International academic preparation with German technical education exposure.</p>
                 </div>
             </div>
         </section>
 
         <section id="projects">
             <h2 class="text-3xl font-bold mb-12 flex items-center gap-4">
-                <span class="text-cyan-500 font-mono text-xl">01.</span> Featured Projects
+                <span class="text-cyan-500 font-mono text-xl">01.</span> Projects
             </h2>
-            <div class="grid md:grid-cols-2 gap-8" id="projects-grid"></div>
+            <div class="grid md:grid-cols-3 gap-6" id="projects-grid"></div>
         </section>
 
         <section id="skills">
@@ -135,19 +135,45 @@
             <div class="grid grid-cols-2 md:grid-cols-5 gap-4" id="skills-grid"></div>
         </section>
 
-        <section id="contact" class="text-center py-20 glass rounded-3xl p-12">
-            <h2 class="text-4xl font-black mb-6">Let's build something <span class="text-green-500">stable.</span></h2>
-            <p class="text-gray-400 mb-8 max-w-xl mx-auto">Open to Embedded Systems, IoT, and Automation opportunities. Reach out via encrypted email or direct call.</p>
+        <section id="experience">
+            <h2 class="text-3xl font-bold mb-12 flex items-center gap-4">
+                <span class="text-cyan-500 font-mono text-xl">03.</span> Experience
+            </h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass p-8 rounded-2xl border border-white/5 hover-lift">
+                    <h3 class="text-xl font-bold text-white">Lakshmi Electrical Control Systems (LECS)</h3>
+                    <p class="text-cyan-400 text-sm mb-4">Control Panel Division Intern</p>
+                    <ul class="text-gray-400 space-y-2 text-sm">
+                        <li>• Industrial control panel assembly</li>
+                        <li>• PLC and motor wiring exposure</li>
+                        <li>• Industrial automation systems</li>
+                    </ul>
+                </div>
+                <div class="glass p-8 rounded-2xl border border-white/5 hover-lift">
+                    <h3 class="text-xl font-bold text-white">Pricol Engineering Industries</h3>
+                    <p class="text-cyan-400 text-sm mb-4">Automotive Electronics Intern</p>
+                    <ul class="text-gray-400 space-y-2 text-sm">
+                        <li>• Automotive electronics manufacturing</li>
+                        <li>• Sensor and USB module testing</li>
+                        <li>• Quality inspection exposure</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="text-center py-16 glass rounded-3xl p-12">
+            <h2 class="text-3xl font-black mb-6 text-white">Ready to connect?</h2>
+            <p class="text-gray-400 mb-8 max-w-xl mx-auto">Open to Embedded Systems, IoT, and Automation opportunities. Connect with me directly via email or phone.</p>
             <div class="flex flex-col md:flex-row justify-center gap-4">
-                <a href="mailto:vijaysaravanan1609@gmail.com" class="bg-cyan-600 px-10 py-4 rounded-full font-bold hover:bg-cyan-700 transition-all">vijaysaravanan1609@gmail.com</a>
-                <a href="tel:+918754197055" class="bg-gray-800 px-10 py-4 rounded-full font-bold hover:bg-gray-700 transition-all">+91 8754197055</a>
+                <a href="mailto:vijaysaravanan1609@gmail.com" class="bg-cyan-600 px-8 py-4 rounded-full font-bold hover:bg-cyan-700 transition-all text-sm">vijaysaravanan1609@gmail.com</a>
+                <a href="tel:+918754197055" class="bg-gray-800 px-8 py-4 rounded-full font-bold hover:bg-gray-700 transition-all text-sm">+91 8754197055</a>
             </div>
         </section>
 
     </main>
 
-    <footer class="py-10 text-center text-gray-600 font-mono text-sm border-t border-white/5">
-        &copy; <span id="year"></span> | Designed for Performance | Embedded Systems Portfolio
+    <footer class="py-10 text-center text-gray-600 font-mono text-xs border-t border-white/5">
+        &copy; <span id="year"></span> | Embedded Systems Portfolio | Vijayaragavan Saravanan
     </footer>
 
     <script>
@@ -160,59 +186,66 @@
                 {"name": "STM32", "level": 85},
                 {"name": "ESP32", "level": 90},
                 {"name": "Raspberry Pi", "level": 85},
-                {"name": "MQTT/IoT", "level": 85},
+                {"name": "IoT Protocols", "level": 85},
                 {"name": "Sensors", "level": 90},
                 {"name": "Linux", "level": 75},
-                {"name": "Git", "level": 80},
-                {"name": "Altium/PCB", "level": 70}
+                {"name": "OpenCV", "level": 80},
+                {"name": "Git", "level": 80}
             ],
             projects: [
                 {
                     title: "Advanced Human Life Detection",
-                    desc: "A portable embedded system using sensor fusion and signal processing for disaster rescue.",
-                    tags: ["Raspberry Pi", "Vibration Sensing", "Acoustic Analysis"]
+                    desc: "Portable embedded system using sensor fusion and signal processing for disaster rescue applications.",
+                    tags: ["Raspberry Pi", "Signal Processing", "Sensor Fusion"]
+                },
+                {
+                    title: "Gesture Detection using OpenCV",
+                    desc: "Real-time gesture recognition system developed using Python and OpenCV for intelligent human-computer interaction.",
+                    tags: ["Python", "OpenCV", "Computer Vision"]
+                },
+                {
+                    title: "Gesture-Control Contactless Switch",
+                    desc: "Arduino-based touch-free control system using APDS9960 gesture sensor for contactless appliance switching.",
+                    tags: ["Arduino", "Sensors", "Embedded Systems"]
                 }
             ]
         };
 
-        const roles = ["Embedded Systems Engineer", "IoT Developer", "Automation Enthusiast"];
+        const roles = ["Embedded Systems Engineer", "IoT & Sensor Systems Developer", "Industrial Automation Enthusiast", "Raspberry Pi & ESP32 Developer"];
 
         function init() {
-            // Render Skills
             const skillGrid = document.getElementById('skills-grid');
             data.skills.forEach(s => {
                 skillGrid.innerHTML += `
-                    <div class="skill-tile glass p-4 rounded-xl border border-white/5">
-                        <p class="text-xs font-mono text-cyan-400 mb-2">${s.name}</p>
-                        <div class="h-1 bg-gray-800 w-full rounded-full">
+                    <div class="glass p-4 rounded-xl border border-white/5 hover:border-cyan-500/50 transition-all">
+                        <p class="text-[10px] font-mono text-cyan-400 mb-2 uppercase tracking-tighter">${s.name}</p>
+                        <div class="h-1 bg-gray-800 w-full rounded-full overflow-hidden">
                             <div class="h-full bg-cyan-500" style="width: ${s.level}%"></div>
                         </div>
                     </div>`;
             });
 
-            // Render Projects
             const projGrid = document.getElementById('projects-grid');
             data.projects.forEach(p => {
                 projGrid.innerHTML += `
-                    <div class="project-card glass p-8 rounded-2xl border border-white/5 space-y-4">
-                        <div class="flex gap-2">
-                            ${p.tags.map(t => `<span class="text-[10px] font-mono bg-cyan-900/30 text-cyan-400 px-2 py-1 rounded">${t}</span>`).join('')}
+                    <div class="glass p-6 rounded-2xl border border-white/5 hover-lift flex flex-col justify-between">
+                        <div>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                ${p.tags.map(t => `<span class="text-[9px] font-mono bg-cyan-900/30 text-cyan-400 px-2 py-0.5 rounded">${t}</span>`).join('')}
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-2">${p.title}</h3>
+                            <p class="text-gray-400 text-xs leading-relaxed">${p.desc}</p>
                         </div>
-                        <h3 class="text-xl font-bold text-white">${p.title}</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">${p.desc}</p>
-                        <a href="uploads/project-report.pdf" class="inline-block text-cyan-400 text-sm font-bold hover:underline">Read Documentation →</a>
                     </div>`;
             });
 
-            // Scroll Animations
             gsap.utils.toArray("section").forEach(section => {
                 gsap.to(section, {
-                    scrollTrigger: { trigger: section, start: "top 85%" },
-                    opacity: 1, y: 0, duration: 1, ease: "power4.out"
+                    scrollTrigger: { trigger: section, start: "top 90%" },
+                    opacity: 1, y: 0, duration: 0.8, ease: "power2.out"
                 });
             });
 
-            // Typewriter
             let i = 0, j = 0, isDeleting = false;
             function type() {
                 const el = document.getElementById('typewriter');
@@ -220,11 +253,10 @@
                 el.textContent = isDeleting ? current.substring(0, j--) : current.substring(0, j++);
                 if (!isDeleting && j > current.length) { isDeleting = true; setTimeout(type, 2000); }
                 else if (isDeleting && j === 0) { isDeleting = false; i = (i + 1) % roles.length; setTimeout(type, 500); }
-                else { setTimeout(type, isDeleting ? 40 : 80); }
+                else { setTimeout(type, isDeleting ? 30 : 60); }
             }
             type();
 
-            // Scroll Progress
             window.addEventListener('scroll', () => {
                 const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
                 const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
